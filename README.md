@@ -1,94 +1,84 @@
-# Strimz - Join Waitlist Page
+# Strimz - Crypto Payroll and Subscriptions Made Easy ⚡
 
-Welcome to the Strimz Join Waitlist project! This repository contains the source code for a simple webpage where users can sign up to join the waitlist for Strimz, the automated token streaming platform for salary payments and subscription services.
+Strimz is a decentralized platform that simplifies crypto payroll and subscription payments. Built on **Starknet**, Strimz leverages blockchain technology to automate payments, reduce manual processes, and provide a seamless user experience.
 
-## Features
+## 🌟 Features
 
-- **Responsive Design**: Ensures a seamless experience on both desktop and mobile devices.
-- **User-friendly Form**: Allows users to input their email address to join the waitlist.
-- **Minimalist Aesthetic**: Clean and professional design aligned with the Strimz brand.
-- **Form Validation**: Ensures valid email input before submission.
+- **Crypto Payroll**: Pay your team in crypto securely and on time with automated payroll processing.
+- **Bill Payment & Subscriptions**: Manage recurring payments with ease through our intuitive platform.
+- **Real-Time Tracking**: Monitor payments in real-time for better transparency and control.
+- **Secure Automation**: Ensure every transaction is secure and efficient with blockchain technology.
+- **Strimz SDK**: Integrate Strimz seamlessly into your ecosystem for bill payments and subscriptions.
 
-## Getting Started
+## 🚀 Tech Stack
 
-Follow these instructions to get a copy of the project running on your local machine.
+- **Frontend**: React, Tailwind CSS, TypeScript, StarknetJs, Starknet-React
+- **Backend**: Node.js, MongoDB
+- **Blockchain**: Starknet
+- **Hosting**: Vercel
 
-### Prerequisites
+## 📸 Screenshots
 
-Ensure you have the following installed:
+### Landing Page
+![Landing Page](https://via.placeholder.com/800x400.png?text=Landing+Page)
 
-- [Node.js](https://nodejs.org/) (LTS version recommended)
-- [Git](https://git-scm.com/)
+### Payroll Dashboard
+![Payroll Dashboard](https://via.placeholder.com/800x400.png?text=Payroll+Dashboard)
 
-### Installation
+## 💻 Local Development Setup
 
-1. Clone this repository (requires appropriate access permissions):
+Follow these steps to run Strimz locally:
 
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/strimz-headquarters/waitlist_webpage.git
+   git clone https://github.com/strimz-headquarters/frontendv1.git
+   cd strimz
    ```
 
-2. Navigate to the project directory:
-
-   ```bash
-   cd waitlist_webpage
-   ```
-
-3. Install dependencies:
-
+2. **Install dependencies**:
    ```bash
    npm install
    ```
 
-4. Start the development server:
-
+3. **Start the development server**:
    ```bash
    npm run dev
    ```
 
-5. Open your browser and go to `http://localhost:3000`.
+4. Open your browser and visit [http://localhost:3000](http://localhost:3000).
 
-## Deployment
+## 🛠️ Building the Project
 
-To deploy the webpage, build the production files and host them on your preferred platform (e.g., Vercel, Netlify, AWS).
+- **Run tests**:
+  ```bash
+  npm run test
+  ```
 
-1. Build the project:
+- **Build for production**:
+  ```bash
+  npm run build
+  ```
 
-   ```bash
-   npm run build
-   ```
+## 📚 Documentation
 
-2. Deploy the contents of the `build` directory to your hosting service.
+Explore our [documentation](https://docs.strimz.com) for a detailed guide on using Strimz and its SDK.
 
-## Contributing
+## 🤝 Contributing
 
-We welcome contributions to improve this project! To get started:
+We welcome contributions! Here's how you can help:
+1. Fork the repository.
+2. Create a new branch for your feature.
+3. Submit a pull request for review.
 
-1. Fork this repository (requires organization membership).
-2. Create a new branch:
+## 🛡️ License
 
-   ```bash
-   git checkout -b feature-name
-   ```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-3. Make your changes and commit them:
+## 💬 Contact
 
-   ```bash
-   git commit -m "Add your message here"
-   ```
+- **Twitter**: [@Strimz_HQ](https://x.com/Strimz_HQ)
+- **Email**: support@strimz.com
 
-4. Push to your branch:
+---
 
-   ```bash
-   git push origin feature-name
-   ```
-
-5. Create a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For more information, follow us on [Twitter](https://x.com/Strimz_HQ).
+Built with ❤️ by the Strimz team.
