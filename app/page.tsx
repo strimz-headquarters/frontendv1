@@ -1,9 +1,9 @@
 'use client'
-import PayBills from "@/components/Features/PayBills";
-import PayInCrypto from "@/components/Features/PayInCrypto";
-import HeroSection from "@/components/HeroSection";
-import JoinWaitList from "@/components/JoinWaitList";
-import WhyStrimz from "@/components/WhyStrimz";
+import PayBills from "@/components/guest/Features/PayBills";
+import PayInCrypto from "@/components/guest/Features/PayInCrypto";
+import HeroSection from "@/components/guest/HeroSection";
+import JoinWaitList from "@/components/guest/JoinWaitList";
+import WhyStrimz from "@/components/guest/WhyStrimz";
 
 
 export default function Home() {

@@ -1,4 +1,5 @@
-import JoinWaitlistForm from "../shared/JoinWaitlistForm"
+
+import JoinWaitlistForm from "@/components/shared/JoinWaitlistForm"
 import AnimatedRevolver from "./AnimatedRevolver"
 
 

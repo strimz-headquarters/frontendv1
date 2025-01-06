@@ -1,6 +1,7 @@
+import JoinWaitlistForm from "@/components/shared/JoinWaitlistForm"
 import pattern from "@/public/vec/Patterns.png"
 import Image from "next/image"
-import JoinWaitlistForm from "../shared/JoinWaitlistForm"
+
 
 const JoinWaitList = () => {
     return (
