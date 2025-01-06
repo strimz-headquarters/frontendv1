@@ -16,7 +16,7 @@
     "formik": "^2.4.6",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.469.0",
-    "next": "14.2.17",
+    "next": "14.2.21",
     "react": "^18",
     "react-dom": "^18",
     "react-fast-marquee": "^1.6.5",
