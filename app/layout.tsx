@@ -6,7 +6,7 @@ import { getMetadata } from "@/utils/getMetadata";
 
 export const metadata = getMetadata({
   title: "Strimz",
-  description: "Join the Strimz waitlist to receive updates on our new features and services. Sign up now to be the first to know when we launch!",
+  description: "Strimz is a DeFi solution designed to automate crypto payroll and subscription payments, offering secure and seamless financial management.",
 })
 
 export default function RootLayout({

@@ -1,5 +1,22 @@
 {
     "name": "Strimz",
-    "description": "Join the Strimz waitlist to receive updates on our new features and services. Sign up now to be the first to know when we launch!",
-    "iconPath": "/StrimzIcon.png"
+    "short_name": "Strimz",
+    "description": "Strimz is a DeFi solution designed to automate crypto payroll and subscription payments, offering secure and seamless financial management.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#2C2F5E",
+    "iconPath": "/StrimzIcon.png",
+    "icons": [
+        {
+            "src": "/StrimzIcon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/StrimzIcon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
 }
