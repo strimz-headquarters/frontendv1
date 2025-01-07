@@ -1,6 +1,3 @@
-import Footer from "@/components/shared/Footer";
-import NavBar from "@/components/shared/NavBar";
-import ScrollToTopBtn from "@/components/shared/ScrollToTopBtn";
 import "@/styles/globals.css";
 import { getMetadata } from "@/utils/getMetadata";
 
@@ -19,12 +16,7 @@ export default function RootLayout({
       <body
         className="w-full min-h-screen antialiased bg-[#FFFFFF]"
       >
-        <NavBar />
-        <main className="w-full">
-          {children}
-        </main>
-        <ScrollToTopBtn />
-        <Footer />
+        {children}
       </body>
     </html>
   );

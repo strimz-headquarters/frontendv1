@@ -14,12 +14,12 @@ import MovingText from './MovingText';
 
 const AnimatedRevolver = () => {
     const circleRadii = [
-        45, // Outer circle radius as a percentage of the wrapper size
+        45,
         40,
         35,
         30,
         25,
-        20, // Innermost circle
+        20,
     ];
 
     return (
