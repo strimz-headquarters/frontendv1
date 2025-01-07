@@ -7,15 +7,15 @@ import * as Yup from "yup";
 import ErrorDisplay from './ErrorMsg';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-interface JoinWaitlistFormValues {
+interface SubscribeFormValues {
     email: string;
 }
 
-const JoinWaitlistForm = () => {
+const SubscribeForm = () => {
     const [isSending, setIsSending] = useState<boolean>(false);
 
     //initial form values
-    const initialValues: JoinWaitlistFormValues = {
+    const initialValues: SubscribeFormValues = {
         email: "",
     };
 
@@ -25,8 +25,8 @@ const JoinWaitlistForm = () => {
 
     // OnSubmit handler
     const onSubmit = async (
-        values: JoinWaitlistFormValues,
-        { resetForm }: FormikHelpers<JoinWaitlistFormValues>
+        values: SubscribeFormValues,
+        { resetForm }: FormikHelpers<SubscribeFormValues>
     ) => {
         try {
             setIsSending(true);
@@ -67,7 +67,7 @@ const JoinWaitlistForm = () => {
                                             <AiOutlineLoading3Quarters className="animate-spin text-[#FFFFFF]" />
                                             Sending...
                                         </span>)
-                                        : (<span>Join waitlist</span>)
+                                        : (<span>Subscribe</span>)
                                 }
                             </button>
                         </div>
@@ -84,4 +84,4 @@ const JoinWaitlistForm = () => {
     )
 }
 
-export default JoinWaitlistForm
+export default SubscribeForm

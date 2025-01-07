@@ -47,15 +47,12 @@ const NavBar = () => {
                     </div>
 
                     <div className='flex items-center gap-[24px]'>
-                        <Spy
-                            to="joinWaitlist"
-                            smooth={true}
-                            spy={true}
-                            duration={500}
-                            className={`md:w-[130px] w-[110px] h-[40px] flex justify-center items-center bg-[#F9FAFB] rounded-[8px] border border-[#E5E7EB] shadow-[0px_-2px_4px_0px_#00000014_inset] cursor-pointer text-[14px] font-[600] font-poppins text-strimzBrandAccent`}
+                        <button
+                            type="button"
+                            className={`md:w-[130px] w-[110px] h-[40px] flex justify-center items-center bg-[#F9FAFB] rounded-[8px] border border-[#E5E7EB] shadow-[0px_-2px_4px_0px_#00000014_inset] cursor-pointer text-[14px] font-[500] font-poppins text-strimzPrimary`}
                         >
-                            Join waitlist
-                        </Spy>
+                            Login
+                        </button>
 
                         <div className="md:hidden flex items-center">
                             <MobileNav />

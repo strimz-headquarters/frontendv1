@@ -2,7 +2,7 @@
 import PayBills from "@/components/guest/Features/PayBills";
 import PayInCrypto from "@/components/guest/Features/PayInCrypto";
 import HeroSection from "@/components/guest/HeroSection";
-import JoinWaitList from "@/components/guest/JoinWaitList";
+import Newsletter from "@/components/guest/Newsletter";
 import WhyStrimz from "@/components/guest/WhyStrimz";
 
 
@@ -13,7 +13,7 @@ export default function Home() {
       <WhyStrimz />
       <PayInCrypto />
       <PayBills />
-      <JoinWaitList />
+      <Newsletter />
     </main>
   );
 }
