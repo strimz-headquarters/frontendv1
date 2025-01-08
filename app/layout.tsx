@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import { getMetadata } from "@/utils/getMetadata";
+import { Toaster } from 'sonner';
 
 export const metadata = getMetadata({
   title: "Strimz",
@@ -17,6 +18,7 @@ export default function RootLayout({
         className="w-full min-h-screen antialiased bg-[#FFFFFF]"
       >
         {children}
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );
