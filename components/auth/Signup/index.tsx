@@ -10,6 +10,7 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 import GoogleIcon from "@/public/brands/Google.svg"
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
     return (
@@ -32,6 +33,8 @@ interface FormInputValues {
 const FormInputs = () => {
     const [isSending, setIsSending] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
+
+    const router = useRouter();
 
     //initial form values
     const initialValues: FormInputValues = {
@@ -63,6 +66,7 @@ const FormInputs = () => {
 
             // Reset the form after successful submission
             resetForm();
+            router.push("/verify-email");
             console.log("Login successful!");
         } catch (error) {
             console.error("Failed to login:", error);
@@ -123,12 +127,9 @@ const FormInputs = () => {
                                 component={({ children }: any) => <ErrorDisplay message={children} />}
                             />
                         </div>
-                        {/* forgot password */}
-                        <div className="w-full flex justify-end">
-                            <Link href="/forgot-password" className="font-poppins text-[14px] text-[#58556A] hover:underline leading-[24px]">Forgot Password?</Link>
-                        </div>
+
                         {/* btn */}
-                        <button type="submit" disabled={!(dirty && isValid)} className='w-full h-[40px] flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[600] shadow-joinWaitlistBtnShadow text-shadow text-[14px] disabled:opacity-80 disabled:cursor-not-allowed'>
+                        <button type="submit" disabled={!(dirty && isValid)} className='w-full h-[40px] mt-3 flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[600] shadow-joinWaitlistBtnShadow text-shadow text-[14px] disabled:opacity-80 disabled:cursor-not-allowed'>
                             {
                                 isSending ?
                                     (<span className="flex items-center text-[#FFFFFF] gap-1">

@@ -34,6 +34,8 @@ const config: Config = {
           "0px 10px 10px 0px #0000000A, 0px 20px 25px -5px #0000001A",
         authCardShadow:
           "0px 2px 4px -2px #0000000D, 0px 4px 6px -1px #0000001A",
+        verifyMShadow:
+          "0px 2.8px 5.6px -2.8px #0000000D, 0px 5.6px 8.4px -1.4px #0000001A, 0px -2.8px 5.6px 0px #0000001A inset",
       },
     },
   },
