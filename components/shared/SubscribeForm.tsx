@@ -76,9 +76,7 @@ const SubscribeForm = () => {
                             component={({ children }: any) => <ErrorDisplay message={children} />} />
                     </Form>
                 )
-            }
-
-            }
+            }}
         </Formik>
 
     )

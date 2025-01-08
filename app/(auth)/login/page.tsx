@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function UserLogin() {
     return (
-        <main className="w-full min-h-screen grid md:grid-cols-8">
+        <main className="w-full min-h-screen grid md:grid-cols-8 px-5 md:px-0">
             <section className="md:col-span-3 hidden md:flex flex-col bg-[#050020] overflow-hidden relative lg:pt-12 pt-8 lg:px-12 px-6 gap-16">
                 <Logo href='/' classname='w-[101px]' image={StrimzLogo} />
                 <div className="lg:w-[337px] flex flex-col gap-2">
