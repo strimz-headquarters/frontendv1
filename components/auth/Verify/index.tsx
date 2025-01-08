@@ -9,11 +9,12 @@ import { useState } from "react"
 import { REGEXP_ONLY_DIGITS } from "input-otp"
 import { useRouter } from "next/navigation"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
+import { RxCaretLeft } from "react-icons/rx";
 
 const VerificationForm = () => {
-
+    const router = useRouter()
     return (
-        <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col gap-4 items-center py-8 px-6">
+        <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col gap-4 items-center py-8 px-6 relative">
             <div className="w-[56px] h-[56px] flex justify-center items-center bg-white border-[0.7px] border-[#E5E7EB] rounded-full shadow-verifyMShadow text-strimzBrandAccent">
                 <BsEnvelope className="w-5 h-5" />
             </div>
@@ -29,6 +30,11 @@ const VerificationForm = () => {
                 Didn&apos;t get an email?
                 <button className="underline ml-2 text-strimzBrandAccent font-[500]">Resend code</button>
             </p>
+
+            {/* go back btn */}
+            <button type="button" onClick={() => router.back()} className="absolute top-5 left-5 text-strimzPrimary font-bold">
+                <RxCaretLeft className="w-8 h-8" />
+            </button>
         </div>
     )
 }
