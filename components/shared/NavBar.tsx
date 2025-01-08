@@ -5,9 +5,12 @@ import Logo from './Logo';
 import StrimzLogo from "@/public/logo/logo.png"
 import { Link as Spy } from "react-scroll";
 import MobileNav from './MobileNav';
+import { useRouter } from 'next/navigation';
 
 const NavBar = () => {
     const { scrollYProgress } = useScroll();
+
+    const router = useRouter()
 
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -49,6 +52,7 @@ const NavBar = () => {
                     <div className='flex items-center gap-[24px]'>
                         <button
                             type="button"
+                            onClick={() => router.push("/login")}
                             className={`md:w-[130px] w-[110px] h-[40px] flex justify-center items-center bg-[#F9FAFB] rounded-[8px] border border-[#E5E7EB] shadow-[0px_-2px_4px_0px_#00000014_inset] cursor-pointer text-[14px] font-[500] font-poppins text-strimzPrimary`}
                         >
                             Login
