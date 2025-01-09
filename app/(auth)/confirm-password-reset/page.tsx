@@ -1,3 +1,4 @@
+import ConfirmPasswordResetEmail from "@/components/auth/ConfirmPswdReset";
 import Logo from "@/components/shared/Logo";
 import StrimzLogo from "@/public/logo/authLogo.png"
 import authPattern from "@/public/vec/authPattern.png"
@@ -19,7 +20,7 @@ export default function ConfirmPasswordReset() {
                 </div>
             </section>
             <section className="md:col-span-5 flex justify-center items-center bg-[#F9FAFB]">
-
+                <ConfirmPasswordResetEmail />
             </section>
         </main>
     )
