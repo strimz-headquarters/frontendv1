@@ -7,7 +7,7 @@ export default function OnboardingLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <section className="w-full min-h-screen flex flex-col bg-white md:py-10 py-[24px]">
+        <section className="w-full min-h-screen flex flex-col bg-white md:pt-10 pb-20 pt-[24px]">
             <header className="w-full flex justify-between items-center lg:px-16 md:px-8 px-5">
                 <Logo href='/' classname='md:w-[114.28px] w-[101px]' image={StrimzLogo} />
 
