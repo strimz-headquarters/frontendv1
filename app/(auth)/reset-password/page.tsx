@@ -1,3 +1,4 @@
+import ResetPasswordForm from "@/components/auth/ResetPassword";
 import Logo from "@/components/shared/Logo";
 import StrimzLogo from "@/public/logo/authLogo.png"
 import authPattern from "@/public/vec/authPattern.png"
@@ -19,7 +20,7 @@ export default function ResetPassword() {
                 </div>
             </section>
             <section className="md:col-span-5 flex justify-center items-center bg-[#F9FAFB]">
-
+                <ResetPasswordForm />
             </section>
         </main>
     )
