@@ -12,19 +12,17 @@ import GoogleIcon from "@/public/brands/Google.svg"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-
-
-const LoginForm = () => {
+const SignupForm = () => {
     return (
         <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col items-center py-8 px-6">
-            <h4 className="font-[600] font-sora text-strimzPrimary text-center text-lg">Login to Strimz</h4>
+            <h4 className="font-[600] font-sora text-strimzPrimary text-center text-lg">Welcome to Strimz</h4>
 
             <FormInputs />
         </div>
     )
 }
 
-export default LoginForm
+export default SignupForm
 
 
 interface FormInputValues {
@@ -36,7 +34,7 @@ const FormInputs = () => {
     const [isSending, setIsSending] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    const router = useRouter()
+    const router = useRouter();
 
     //initial form values
     const initialValues: FormInputValues = {
@@ -68,7 +66,7 @@ const FormInputs = () => {
 
             // Reset the form after successful submission
             resetForm();
-            router.push("/user")
+            router.push("/verify-email");
             console.log("Login successful!");
         } catch (error) {
             console.error("Failed to login:", error);
@@ -129,19 +127,16 @@ const FormInputs = () => {
                                 component={({ children }: any) => <ErrorDisplay message={children} />}
                             />
                         </div>
-                        {/* forgot password */}
-                        <div className="w-full flex justify-end">
-                            <Link href="/reset-password" className="font-poppins text-[14px] text-[#58556A] hover:underline leading-[24px]">Forgot Password?</Link>
-                        </div>
+
                         {/* btn */}
-                        <button type="submit" disabled={!(dirty && isValid)} className='w-full h-[40px] flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[600] shadow-joinWaitlistBtnShadow text-shadow text-[14px] disabled:opacity-80 disabled:cursor-not-allowed'>
+                        <button type="submit" disabled={!(dirty && isValid)} className='w-full h-[40px] mt-3 flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[600] shadow-joinWaitlistBtnShadow text-shadow text-[14px] disabled:opacity-80 disabled:cursor-not-allowed'>
                             {
                                 isSending ?
                                     (<span className="flex items-center text-[#FFFFFF] gap-1">
                                         <AiOutlineLoading3Quarters className="animate-spin text-[#FFFFFF]" />
                                         Submitting...
                                     </span>)
-                                    : (<span>Login</span>)
+                                    : (<span>Signup</span>)
                             }
                         </button>
                         {/* divide */}
@@ -154,7 +149,7 @@ const FormInputs = () => {
 
                         {/* end */}
                         <div className="w-full flex flex-col items-center gap-4 mt-8">
-                            <p className="font-poppins text-center font-[400] text-[14px] text-[#58556A] leading-[24px]">Don&apos;t have an account? <Link href="/signup" className="font-poppins font-[600] text-[14px] text-strimzBrandAccent hover:underline leading-[24px]">Sign Up</Link></p>
+                            <p className="font-poppins text-center font-[400] text-[14px] text-[#58556A] leading-[24px]">Have an account? <Link href="/login" className="font-poppins font-[600] text-[14px] text-strimzBrandAccent hover:underline leading-[24px]">Login</Link></p>
 
                             <p className="md:w-[80%] w-[90%] text-center font-poppins font-[400] text-[12px] text-[#58556A] ">
                                 By continuing you agree to{" "}

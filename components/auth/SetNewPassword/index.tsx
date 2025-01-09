@@ -7,28 +7,30 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import * as Yup from "yup";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
-import Link from "next/link";
-import GoogleIcon from "@/public/brands/Google.svg"
-import Image from "next/image";
+import { TbLockPassword } from 'react-icons/tb'
 import { useRouter } from "next/navigation";
 
-
-
-const LoginForm = () => {
+const SetNewPasswordForm = () => {
     return (
-        <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col items-center py-8 px-6">
-            <h4 className="font-[600] font-sora text-strimzPrimary text-center text-lg">Login to Strimz</h4>
+        <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col gap-4 items-center py-8 px-6 relative">
+            <div className="w-[56px] h-[56px] flex justify-center items-center bg-white border-[0.7px] border-[#E5E7EB] rounded-full shadow-verifyMShadow text-strimzBrandAccent">
+                <TbLockPassword className="w-5 h-5" />
+            </div>
+
+            <div className="w-full flex flex-col gap-3">
+                <h4 className="font-poppins font-[600] text-base text-strimzPrimary text-center">Create a New Password</h4>
+                <p className="font-poppins font-[400] text-[14px] leading-[24px] text-[#58556A] text-center px-3">Set a strong password to secure your account. </p>
+            </div>
 
             <FormInputs />
         </div>
     )
 }
 
-export default LoginForm
+export default SetNewPasswordForm
 
 
 interface FormInputValues {
-    email: string;
     password: string;
 }
 
@@ -36,16 +38,14 @@ const FormInputs = () => {
     const [isSending, setIsSending] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    const router = useRouter()
+    const router = useRouter();
 
     //initial form values
     const initialValues: FormInputValues = {
-        email: "",
         password: ""
     };
 
     const validationSchema = Yup.object({
-        email: Yup.string().email("Invalid Email Format").required("Email is required"),
         password: Yup.string()
             .required("Password is required")
             .min(8, "Password must be at least 8 characters")
@@ -61,17 +61,16 @@ const FormInputs = () => {
         try {
             setIsSending(true);
 
-            console.log("Email:", values.email);
             console.log("Password", values.password);
 
             await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate delay
 
             // Reset the form after successful submission
             resetForm();
-            router.push("/user")
-            console.log("Login successful!");
+            router.push("/login");
+            console.log("created successfully!");
         } catch (error) {
-            console.error("Failed to login:", error);
+            console.error("Failed to create:", error);
         } finally {
             setIsSending(false);
         }
@@ -86,15 +85,8 @@ const FormInputs = () => {
             {(formik) => {
                 const { dirty, isValid, errors } = formik;
                 return (
-                    <Form className="w-full flex flex-col gap-3 mt-6">
-                        {/* email */}
-                        <div className='w-full flex flex-col'>
-                            <label htmlFor="email" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Email</label>
-                            <Field type="email" name="email" id="email" placeholder='Adams@example.com' className={`w-full rounded-[8px] border bg-[#F9FAFB] shadow-navbarShadow h-[44px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-4 outline-none transition duration-300 focus:border-strimzBrandAccent ${errors.email ? "border-red-500" : "border-[#E5E7EB]"}`} />
-                            {/* error */}
-                            <ErrorMessage name="email"
-                                component={({ children }: any) => <ErrorDisplay message={children} />} />
-                        </div>
+                    <Form className="w-full flex flex-col gap-3 mt-4">
+
                         {/* Password */}
                         <div className="w-full flex flex-col">
                             <label
@@ -129,39 +121,18 @@ const FormInputs = () => {
                                 component={({ children }: any) => <ErrorDisplay message={children} />}
                             />
                         </div>
-                        {/* forgot password */}
-                        <div className="w-full flex justify-end">
-                            <Link href="/reset-password" className="font-poppins text-[14px] text-[#58556A] hover:underline leading-[24px]">Forgot Password?</Link>
-                        </div>
+
                         {/* btn */}
-                        <button type="submit" disabled={!(dirty && isValid)} className='w-full h-[40px] flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[600] shadow-joinWaitlistBtnShadow text-shadow text-[14px] disabled:opacity-80 disabled:cursor-not-allowed'>
+                        <button type="submit" disabled={!(dirty && isValid)} className='w-full h-[40px] mt-3 flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[600] shadow-joinWaitlistBtnShadow text-shadow text-[14px] disabled:opacity-80 disabled:cursor-not-allowed'>
                             {
                                 isSending ?
                                     (<span className="flex items-center text-[#FFFFFF] gap-1">
                                         <AiOutlineLoading3Quarters className="animate-spin text-[#FFFFFF]" />
-                                        Submitting...
+                                        Creating...
                                     </span>)
-                                    : (<span>Login</span>)
+                                    : (<span>Create password</span>)
                             }
                         </button>
-                        {/* divide */}
-                        <div className="w-full h-[1px] bg-[#E5E7EB]" />
-                        {/* google auth */}
-                        <button type="button" className='w-full h-[40px] flex justify-center gap-1.5 items-center rounded-[8px] bg-[#F9FAFB] text-[#58556A] font-poppins font-[500] shadow-[0px_-2px_4px_0px_#00000014_inset] border border-[#E5E7EB] text-[12px]'>
-                            <Image src={GoogleIcon} width={12} height={12} alt="Google Icon" className='w-[18px] h-[18px]' priority quality={100} />
-                            <span>Continue with Google</span>
-                        </button>
-
-                        {/* end */}
-                        <div className="w-full flex flex-col items-center gap-4 mt-8">
-                            <p className="font-poppins text-center font-[400] text-[14px] text-[#58556A] leading-[24px]">Don&apos;t have an account? <Link href="/signup" className="font-poppins font-[600] text-[14px] text-strimzBrandAccent hover:underline leading-[24px]">Sign Up</Link></p>
-
-                            <p className="md:w-[80%] w-[90%] text-center font-poppins font-[400] text-[12px] text-[#58556A] ">
-                                By continuing you agree to{" "}
-                                <Link className="underline" href="/">Strimz Terms of Service</Link> and
-                                {" "}<Link href="/" className="underline">Privacy Policy</Link>
-                            </p>
-                        </div>
                     </Form>
                 )
             }}

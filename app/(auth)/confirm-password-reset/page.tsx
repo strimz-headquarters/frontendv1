@@ -1,11 +1,11 @@
-import SignupForm from "@/components/auth/Signup";
+import ConfirmPasswordResetEmail from "@/components/auth/ConfirmPswdReset";
 import Logo from "@/components/shared/Logo";
 import StrimzLogo from "@/public/logo/authLogo.png"
 import authPattern from "@/public/vec/authPattern.png"
 import authPattern2 from "@/public/vec/authPattern2.png"
 import Image from "next/image";
 
-export default function UserSignup() {
+export default function ConfirmPasswordReset() {
     return (
         <main className="w-full min-h-screen grid md:grid-cols-8 px-5 md:px-0">
             <section className="md:col-span-3 hidden md:flex flex-col bg-[#050020] overflow-hidden relative lg:pt-12 pt-8 lg:px-12 px-6 gap-16">
@@ -20,8 +20,8 @@ export default function UserSignup() {
                 </div>
             </section>
             <section className="md:col-span-5 flex justify-center items-center bg-[#F9FAFB]">
-                <SignupForm />
+                <ConfirmPasswordResetEmail />
             </section>
         </main>
-    );
+    )
 }
