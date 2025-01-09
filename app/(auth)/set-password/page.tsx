@@ -1,3 +1,4 @@
+import SetNewPasswordForm from "@/components/auth/SetNewPassword";
 import Logo from "@/components/shared/Logo";
 import StrimzLogo from "@/public/logo/authLogo.png"
 import authPattern from "@/public/vec/authPattern.png"
@@ -19,7 +20,7 @@ export default function SetNewPassword() {
                 </div>
             </section>
             <section className="md:col-span-5 flex justify-center items-center bg-[#F9FAFB]">
-
+                <SetNewPasswordForm />
             </section>
         </main>
     )
