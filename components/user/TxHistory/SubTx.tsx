@@ -1,7 +1,6 @@
 import usdcIcon from "@/public/brands/USDC.svg"
 import usdtIcon from "@/public/brands/USDT.svg"
 import Image from "next/image";
-import { CiGlobe } from "react-icons/ci";
 
 type SubTxProps = {
     title: string;

@@ -1,5 +1,3 @@
-import usdcIcon from "@/public/brands/USDC.svg"
-import usdtIcon from "@/public/brands/USDT.svg"
 import WalletFundTx from "./WalletFundTx"
 import PayrollTx from "./PayrollTx"
 import SubTx from "./SubTx"
