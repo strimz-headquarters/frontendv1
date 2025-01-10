@@ -5,6 +5,8 @@ import usdcIcon from "@/public/brands/USDC.svg"
 import usdtIcon from "@/public/brands/USDT.svg"
 import { AiOutlineDollarCircle } from 'react-icons/ai'
 import TransactionSummary from './TransactionSummary'
+import FundWallet from './FundWallet'
+import Withdraw from './Withdraw'
 
 const UserDashboardHome = () => {
     return (
@@ -51,15 +53,8 @@ const UserDashboardHome = () => {
                     </div>
                     {/* fund & withdraw */}
                     <div className="flex gap-4 mt-4 lg:mt-0">
-                        <button type="button" className='w-[97px] h-[32px] flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[500] shadow-joinWaitlistBtnShadow z-10 text-shadow text-[12px] capitalize'>
-                            fund wallet
-                        </button>
-                        <button
-                            type="button"
-                            className={`w-[97px] h-[32px] flex justify-center items-center bg-[#F9FAFB] rounded-[8px] border border-[#E5E7EB] shadow-[0px_-2px_4px_0px_#00000014_inset] cursor-pointer text-[12px] font-[500] font-poppins text-strimzPrimary`}
-                        >
-                            Withdraw
-                        </button>
+                        <FundWallet />
+                        <Withdraw />
                     </div>
                 </div>
             </main>

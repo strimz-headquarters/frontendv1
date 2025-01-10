@@ -28,3 +28,14 @@ body::-webkit-scrollbar {
 .alertGradient {
   background: linear-gradient(90deg, #05214d 0%, #0d705f 50%, #05214d 100%);
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
