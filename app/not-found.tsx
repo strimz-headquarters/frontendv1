@@ -1,9 +1,12 @@
+'use client'
 import Link from "next/link";
 import { TbError404 } from "react-icons/tb";
 import Image from "next/image";
 import pattern from "@/public/vec/Patterns.png"
+import { useRouter } from "next/navigation";
 
 export default function NotFound() {
+    const router = useRouter()
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-[#F9FAFB]] p-4">
 
@@ -18,7 +21,17 @@ export default function NotFound() {
             </p>
 
 
-            <Link href="/" className="w-[151px] h-[40px] flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[600] shadow-joinWaitlistBtnShadow z-10 text-shadow text-[14px] hover:bg-strimzPrimary">Return Home</Link>
+            <div className="w-full flex justify-center items-center gap-4 md:gap-8">
+                <Link href="/" className="w-[130px] h-[40px] flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[500] shadow-joinWaitlistBtnShadow z-10 text-shadow text-[12px] hover:bg-strimzPrimary">Return Home</Link>
+                <button
+                    type="button"
+                    onClick={() => router.back()}
+                    className={`w-[130px] h-[40px] flex justify-center items-center bg-[#F9FAFB] rounded-[8px] border border-[#E5E7EB] shadow-[0px_-2px_4px_0px_#00000014_inset] z-10 cursor-pointer text-[12px] font-[500] font-poppins text-strimzPrimary hover:bg-strimzPrimary hover:text-[#F9FAFB]`}
+                >
+                    Go Back
+                </button>
+            </div>
+
 
 
             {/* Decorative SVG */}
