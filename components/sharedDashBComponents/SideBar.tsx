@@ -39,14 +39,14 @@ const SideBar = ({
     return (
         <aside
             ref={sidebar}
-            className={`absolute left-0 top-0 z-[9999] flex h-screen w-72 flex-col justify-between overflow-y-hidden bg-[#F9FAFB] duration-300 ease-linear lg:static lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+            className={`absolute left-0 top-0 z-[9999] flex h-screen w-64 flex-col justify-between overflow-y-hidden bg-[#F9FAFB] duration-300 ease-linear lg:static lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
                 }`}
         >
             <div className="flex flex-col">
                 {/* <!-- SIDEBAR HEADER --> */}
                 <div className="flex flex-col gap-2 font-barlow px-6 py-8 lg:py-6.5">
                     <div className="flex items-start justify-between gap-2  ">
-                        <Logo href='/user' classname='w-[101.58px]' image={StrimzLogo} />
+                        <Logo href='/user' classname='w-[101.58px] md:w-[110.58px] lg:w-[130px]' image={StrimzLogo} />
 
                         <button
                             ref={trigger}
@@ -73,7 +73,7 @@ const SideBar = ({
                                     <li key={index}>
                                         <Link
                                             href={link.href}
-                                            className={`flex items-center gap-2 text-sm font-[400] p-[12px] font-poppins text-[#58556A] transition-all duration-300 hover:bg-[#FFFFFF] hover:border hover:border-[#E5E7EB] hover:shadow-sidebarLinkShadow hover:text-strimzPrimary ${pathname === link.href && "bg-white border border-[#E5E7EB] shadow-sidebarLinkShadow text-strimzPrimary"}`}
+                                            className={`flex items-center gap-2 text-sm font-[400] p-[12px] rounded-[8px] font-poppins text-[#58556A] transition-all hover:bg-[#FFFFFF] border hover:border-[#E5E7EB] hover:shadow-sidebarLinkShadow hover:text-strimzPrimary ${pathname === link.href && "bg-white border-[#E5E7EB] shadow-sidebarLinkShadow text-strimzPrimary"}`}
                                             onClick={handleCloseSideBar}
                                         >
                                             {link.icon}
@@ -86,13 +86,13 @@ const SideBar = ({
                     </nav>
                     {/* <!-- Sidebar Menu --> */}
                 </div>
-                {/* <!-- Sidebar Footer --> */}
-                <div className="w-full flex flex-col">
-                    <div className="w-full h-[120px] bg-gradient-to-tr from-strimzPrimary to-strimzBrandAccent rounded-[12px] p-5">
-                        <p className="text-[#F9FAFB] font-[500] font-sora text-base">Unlock more with a plan upgrade ⚡</p>
-                        <button type="button" onClick={() => router.push("/onboarding/plans")} className="w-full h-[32px] flex justify-center items-center rounded-[8px] border border-[#E5E7EB] bg-[#F9FAFB] text-strimzPrimary text-xs">Upgrade</button>
-                    </div>
+            </div>
 
+            {/* <!-- Sidebar Footer --> */}
+            <div className="w-full flex flex-col px-3 pb-8">
+                <div className="w-full flex flex-col justify-between h-[120px] bg-gradient-to-tr from-strimzPrimary to-strimzBrandAccent rounded-[12px] p-4">
+                    <p className="text-[#F9FAFB] font-[500] font-sora text-sm">Unlock more with a plan upgrade ⚡</p>
+                    <button type="button" onClick={() => router.push("/onboarding/plans")} className="w-full h-[32px] flex justify-center items-center rounded-[8px] border border-[#E5E7EB] bg-[#F9FAFB] text-strimzPrimary text-xs">Upgrade</button>
                 </div>
 
             </div>

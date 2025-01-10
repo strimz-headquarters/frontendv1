@@ -19,3 +19,8 @@
 .text-shadow {
   text-shadow: 0px 0.5px 1px 0px #018d4b;
 }
+
+.no-scrollbar::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
