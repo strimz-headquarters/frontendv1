@@ -40,25 +40,29 @@ const Withdraw = () => {
                     </DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
-                    <Select>
-                        <SelectTrigger className="focus:ring-0 focus:outline-none w-full rounded-[8px] border bg-[#F9FAFB] border-[#E5E7EB] shadow-navbarShadow h-[44px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-4 outline-none transition duration-300 focus:border-strimzBrandAccent">
-                            <SelectValue placeholder="Select token" />
-                        </SelectTrigger>
-                        <SelectContent className="focus:ring-0 focus:outline-none">
-                            <SelectItem value="usdc" >
-                                <span className="w-full uppercase flex flex-row items-center gap-1">
-                                    <Image src={usdcIcon} className="mt-1" alt="USDC" width={22} height={22} />
-                                    USDC
-                                </span>
-                            </SelectItem>
-                            <SelectItem value="usdt" className="flex-row items-center gap-2">
-                                <span className="w-full uppercase flex flex-row items-center gap-1">
-                                    <Image src={usdtIcon} className="mt-1" alt="USDT" width={22} height={22} />
-                                    USDT
-                                </span>
-                            </SelectItem>
-                        </SelectContent>
-                    </Select>
+                    {/* token */}
+                    <div className='w-full flex flex-col'>
+                        <label htmlFor="amount" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Amount</label>
+                        <Select>
+                            <SelectTrigger className="focus:ring-0 focus:outline-none w-full rounded-[8px] border bg-[#F9FAFB] border-[#E5E7EB] shadow-navbarShadow h-[44px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-4 outline-none transition duration-300 focus:border-strimzBrandAccent">
+                                <SelectValue placeholder="Select token" />
+                            </SelectTrigger>
+                            <SelectContent className="focus:ring-0 focus:outline-none">
+                                <SelectItem value="usdc" >
+                                    <span className="w-full uppercase flex flex-row items-center gap-1">
+                                        <Image src={usdcIcon} className="mt-1" alt="USDC" width={22} height={22} />
+                                        USDC
+                                    </span>
+                                </SelectItem>
+                                <SelectItem value="usdt" className="flex-row items-center gap-2">
+                                    <span className="w-full uppercase flex flex-row items-center gap-1">
+                                        <Image src={usdtIcon} className="mt-1" alt="USDT" width={22} height={22} />
+                                        USDT
+                                    </span>
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
 
                     {/* amount */}
                     <div className='w-full flex flex-col'>
