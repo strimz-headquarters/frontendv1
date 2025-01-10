@@ -20,7 +20,7 @@ export default function UserLayout({
                 {/* Sidebar End  */}
 
                 {/* Content Area Start  */}
-                <div className="relative flex min-h-screen rounded-t-[8px] bg-white flex-1 border border-[#E5E7EB] flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar">
+                <div className="relative flex min-h-[100svh] rounded-t-[8px] bg-white flex-1 border border-[#E5E7EB] flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar">
                     <section>
                         {/*  Header Start */}
                         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
@@ -29,7 +29,7 @@ export default function UserLayout({
                         {/*  Main Content Start */}
                         <main>
                             <div className="mx-auto 2xl:max-w-screen-2xl max-w-[684px] mt-4 pb-6 md:pt-4 md:pb-10 2xl:p-10">
-                                <section className="w-full px-1.5">{children}</section>
+                                <section className="w-full lg:px-1.5 px-3">{children}</section>
                             </div>
                         </main>
                     </section>
