@@ -29,6 +29,10 @@ body::-webkit-scrollbar {
   background: linear-gradient(90deg, #05214d 0%, #0d705f 50%, #05214d 100%);
 }
 
+input[type="time"]::-webkit-calendar-picker-indicator {
+  color: #8e8c9c !important;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -36,6 +40,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }

@@ -47,7 +47,7 @@ const Withdraw = () => {
                             <SelectTrigger className="focus:ring-0 focus:outline-none w-full rounded-[8px] border bg-[#F9FAFB] border-[#E5E7EB] shadow-navbarShadow h-[44px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-4 outline-none transition duration-300 focus:border-strimzBrandAccent">
                                 <SelectValue placeholder="Select token" />
                             </SelectTrigger>
-                            <SelectContent className="focus:ring-0 focus:outline-none">
+                            <SelectContent className="focus:ring-0 focus:outline-none z-[99999]">
                                 <SelectItem value="usdc" >
                                     <span className="w-full uppercase flex flex-row items-center gap-1">
                                         <Image src={usdcIcon} className="mt-1" alt="USDC" width={22} height={22} />

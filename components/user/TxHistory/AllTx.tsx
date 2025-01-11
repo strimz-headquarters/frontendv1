@@ -7,7 +7,7 @@ import WithdrawalTx from "./WithdrawalTx"
 
 const AllTx = () => {
     return (
-        <section className="w-full flex flex-col">
+        <section className="w-full flex flex-col gap-2">
             {/* walletfunding */}
             <WalletFundTx title="USDT Wallet funding" date="10th Jun, 24 at 9:30AM" amount="1,000" status="In progress" token="USDT" />
             <WalletFundTx title="USDC Wallet funding" date="20th April, 24 at 9:30AM" amount="10,000" status="Completed" token="USDC" />
