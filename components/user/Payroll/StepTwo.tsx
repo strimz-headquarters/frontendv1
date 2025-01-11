@@ -55,6 +55,10 @@ const StepTwoForm = ({ handleClick }: { handleClick: () => void }) => {
         return true;
     };
 
+    const handleSubmit = () => {
+        console.log(csvData);
+    }
+
     return (
         <main className="w-full flex flex-col gap-5">
             <div className="w-full flex flex-col">
@@ -160,6 +164,15 @@ const StepTwoForm = ({ handleClick }: { handleClick: () => void }) => {
                             </div>
                         </DialogContent>
                     </Dialog>
+                </div>
+
+
+                {/* buttons */}
+                <div className="w-full justify-end flex gap-4 mt-3">
+                    {/* button */}
+                    <button onClick={handleClick} type="button" className="w-[97px] h-[40px] flex justify-center items-center bg-[#F9FAFB] rounded-[8px] border border-[#E5E7EB] shadow-[0px_-2px_4px_0px_#00000014_inset] cursor-pointer text-[14px] font-[500] font-poppins text-strimzPrimary">Back</button>
+
+                    <button onClick={handleSubmit} type="button" className="w-[97px] h-[40px] flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[500] shadow-joinWaitlistBtnShadow text-shadow text-[14px] capitalize">Submit</button>
                 </div>
             </div>
         </main>
