@@ -8,6 +8,14 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 import { LuArrowDownToLine } from "react-icons/lu"
 import Link from "next/link";
 
@@ -165,6 +173,9 @@ const StepTwoForm = ({ handleClick }: { handleClick: () => void }) => {
                         </DialogContent>
                     </Dialog>
                 </div>
+
+                {/* Table */}
+                <div className="w-full"></div>
 
 
                 {/* buttons */}
