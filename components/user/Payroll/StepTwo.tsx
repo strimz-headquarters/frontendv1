@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useState, useEffect, useMemo, } from "react";
 import { formatFileSize, useCSVReader } from "react-papaparse";
 import {
     Dialog,
@@ -16,8 +16,16 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import {
+    ColumnDef,
+    flexRender,
+    getCoreRowModel,
+    useReactTable,
+} from "@tanstack/react-table";
 import { LuArrowDownToLine } from "react-icons/lu"
 import Link from "next/link";
+import { VscEdit, VscSave, VscRemove } from 'react-icons/vsc';
+import { GoPlus } from "react-icons/go";
 
 type CVSDataType = {
     name: string;
@@ -25,9 +33,30 @@ type CVSDataType = {
     amount: number;
 }
 
-const StepTwoForm = ({ handleClick }: { handleClick: () => void }) => {
+type TableDataType = {
+    id: number;
+    name: string;
+    address: string;
+    amount: number;
+    isEditing?: boolean;
+}
+
+interface StepTwoFormProps {
+    data: {
+        payrollName: string;
+        token: string;
+        frequency: string;
+        startDate: Date | null;
+        paymentTime: string;
+    };
+    handleClick: () => void;
+}
+
+const StepTwoForm = ({ data: StepOneData, handleClick }: StepTwoFormProps) => {
     const [csvData, setCsvData] = useState<CVSDataType[]>([]);
     const [error, setError] = useState<string | null>(null);
+
+    const [tableData, setTableData] = useState<TableDataType[]>([]);
 
     const { CSVReader } = useCSVReader();
     const [zoneHover, setZoneHover] = useState(false);
@@ -63,8 +92,127 @@ const StepTwoForm = ({ handleClick }: { handleClick: () => void }) => {
         return true;
     };
 
+    const columns = useMemo<ColumnDef<TableDataType>[]>(
+        () => [
+            {
+                accessorKey: "name",
+                header: () => "Name",
+                cell: (info) => {
+                    const row = info.row.original;
+                    return row.isEditing ? (
+                        <input
+                            type="text"
+                            value={row.name}
+                            onChange={(e) => updateRow(row.id, "name", e.target.value)}
+                            className="w-full rounded-[8px] border bg-[#F9FAFB] h-[40px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-3 outline-none transition duration-300 focus:border-strimzBrandAccent border-[#E5E7EB]"
+                        />
+                    ) : (
+                        info.getValue()
+                    );
+                },
+            },
+            {
+                accessorKey: "address",
+                header: () => "Wallet Address",
+                cell: (info) => {
+                    const row = info.row.original;
+                    return row.isEditing ? (
+                        <input
+                            type="text"
+                            value={row.address}
+                            onChange={(e) => updateRow(row.id, "address", e.target.value)}
+                            className="w-full rounded-[8px] border bg-[#F9FAFB] h-[40px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-3 outline-none transition duration-300 focus:border-strimzBrandAccent border-[#E5E7EB]"
+                        />
+                    ) : (
+                        info.getValue()
+                    );
+                },
+            },
+            {
+                accessorKey: "amount",
+                header: () => "Amount",
+                cell: (info) => {
+                    const row = info.row.original;
+                    return row.isEditing ? (
+                        <input
+                            type="number"
+                            value={row.amount}
+                            onChange={(e) => updateRow(row.id, "amount", e.target.value)}
+                            className="w-full rounded-[8px] border bg-[#F9FAFB] h-[40px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-3 outline-none transition duration-300 focus:border-strimzBrandAccent border-[#E5E7EB]"
+                        />
+                    ) : (
+                        info.getValue()
+                    );
+                },
+            },
+            {
+                id: "actions",
+                header: () => "Actions",
+                cell: (info) => {
+                    const row = info.row.original;
+                    return (
+                        <div className="flex items-center gap-3">
+                            <button
+                                className="text-[#8E8C9C] "
+                                onClick={() => toggleEdit(row.id)}
+                            >
+                                {row.isEditing ? <VscSave className="w-4 h-4" /> : <VscEdit className="w-4 h-4" />}
+                            </button>
+                            <button
+                                className="text-[#8E8C9C]"
+                                onClick={() => removeRow(row.id)}
+                            >
+                                <VscRemove className="w-4 h-4" />
+                            </button>
+                        </div>
+                    );
+                },
+            }
+        ],
+        []
+    );
+
+    const table = useReactTable({
+        columns,
+        data: tableData,
+        getCoreRowModel: getCoreRowModel(),
+    });
+
+    useEffect(() => {
+        if (csvData && csvData.length > 0) {
+            setTableData(csvData.map((item, index) => ({ ...item, id: index + 1 })));
+        }
+    }, [csvData]);
+
+    // adding new record
+    const addNewRecord = () => {
+        const newRow = { id: tableData.length + 1, name: '', address: '', amount: 0, isEditing: true };
+        setTableData([...tableData, newRow]);
+    };
+
+    // Update record
+    const updateRow = (id: number, key: keyof TableDataType, value: any) => {
+        setTableData((prev) =>
+            prev.map((row) => (row.id === id ? { ...row, [key]: value } : row))
+        );
+    };
+
+    // toggle Edit
+    const toggleEdit = (id: number) => {
+        setTableData((prev) =>
+            prev.map((row) =>
+                row.id === id ? { ...row, isEditing: !row.isEditing } : row
+            )
+        );
+    };
+
+    const removeRow = (id: number) => {
+        setTableData((prev) => prev.filter((row) => row.id !== id));
+    };
+
     const handleSubmit = () => {
-        console.log(csvData);
+        console.log("Step One Data:", StepOneData);
+        console.log("Table Data:", tableData);
     }
 
     return (
@@ -112,11 +260,11 @@ const StepTwoForm = ({ handleClick }: { handleClick: () => void }) => {
                                         }
                                         setZoneHover(false);
                                     }}
-                                    onDragOver={(event: DragEvent) => {
+                                    onDragOver={(event: React.DragEvent<HTMLDivElement>) => {
                                         event.preventDefault();
                                         setZoneHover(true);
                                     }}
-                                    onDragLeave={(event: DragEvent) => {
+                                    onDragLeave={(event: React.DragEvent<HTMLDivElement>) => {
                                         event.preventDefault();
                                         setZoneHover(false);
                                     }}
@@ -175,8 +323,61 @@ const StepTwoForm = ({ handleClick }: { handleClick: () => void }) => {
                 </div>
 
                 {/* Table */}
-                <div className="w-full"></div>
+                <main className="w-full flex flex-col items-start border border-[#E5E7EB] shadow-[0px_1px_2px_0px_#00000014] p-1 rounded-[12px]">
+                    <div className="w-full overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                {table.getHeaderGroups().map((headerGroup) => (
+                                    <TableRow
+                                        className="bg-[#F9FAFB] "
+                                        key={headerGroup.id}
+                                    >
+                                        {headerGroup.headers.map((header) => {
+                                            return (
+                                                <TableHead
+                                                    className="text-xs font-[600] font-poppins text-[#58556A]"
+                                                    key={header.id}
+                                                >
+                                                    {header.isPlaceholder
+                                                        ? null
+                                                        : flexRender(
+                                                            header.column.columnDef.header,
+                                                            header.getContext()
+                                                        )}
+                                                </TableHead>
+                                            );
+                                        })}
+                                    </TableRow>
+                                ))}
+                            </TableHeader>
+                            <TableBody className="bg-white">
+                                {table.getRowModel().rows.length > 0 ? (
+                                    table.getRowModel().rows.map((row) => (
+                                        <TableRow key={row.id}>
+                                            {row.getVisibleCells().map((cell) => (
+                                                <TableCell className="text-nowrap text-[#8E8C9C] text-sm font-poppins font-[400]" key={cell.id}>
+                                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                                </TableCell>
+                                            ))}
+                                        </TableRow>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={columns.length} className="text-center text-[#8E8C9C] text-base font-poppins font-[500]">
+                                            No data available
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </div>
 
+                    {/* add new record */}
+                    <button type="button" onClick={addNewRecord} className="w-auto mt-3 px-4 h-[38px] flex justify-center items-center bg-[#F9FAFB] rounded-[8px] border border-[#E5E7EB] shadow-[0px_-2px_4px_0px_#00000014_inset] cursor-pointer text-[12px] font-[500] font-poppins text-strimzPrimary">
+                        <GoPlus className="w-4 h-4 font-bold" />
+                        Add Recipient
+                    </button>
+                </main>
 
                 {/* buttons */}
                 <div className="w-full justify-end flex gap-4 mt-3">

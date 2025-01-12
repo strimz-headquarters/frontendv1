@@ -52,7 +52,7 @@ const Create = () => {
 
             {step === 1 && <StepOneForm data={stepOneData} setData={setStepOneData} handleClick={handleNext} />}
 
-            {step === 2 && <StepTwoForm handleClick={handleBack} />}
+            {step === 2 && <StepTwoForm data={stepOneData} handleClick={handleBack} />}
         </section>
     )
 }
