@@ -26,6 +26,7 @@ import { LuArrowDownToLine } from "react-icons/lu"
 import Link from "next/link";
 import { VscEdit, VscSave, VscRemove } from 'react-icons/vsc';
 import { GoPlus } from "react-icons/go";
+import { useRouter } from "next/navigation";
 
 type CVSDataType = {
     name: string;
@@ -210,9 +211,11 @@ const StepTwoForm = ({ data: StepOneData, handleClick }: StepTwoFormProps) => {
         setTableData((prev) => prev.filter((row) => row.id !== id));
     };
 
+    const router = useRouter();
     const handleSubmit = () => {
         console.log("Step One Data:", StepOneData);
         console.log("Table Data:", tableData);
+        router.push("/user/payroll");
     }
 
     return (
