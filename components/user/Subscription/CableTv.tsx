@@ -14,7 +14,7 @@ const CableTv = () => {
                 <span className="text-base text-strimzPrimary font-[500] font-poppins">Cable TV</span>
             </div>
 
-            <main className="w-full grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <main className="w-full grid grid-cols-2 md:grid-cols-4 gap-4">
                 {
                     tvProviders.map((tv, i) => (
                         <Link key={i} className="bg-white border border-[#E5E7EB] shadow-[0px_1px_2px_0px_#00000014] p-[12px] rounded-[12px] flex flex-col gap-3" href={tv.href}>

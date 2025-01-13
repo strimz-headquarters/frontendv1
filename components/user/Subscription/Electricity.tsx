@@ -13,7 +13,7 @@ const Electricity = () => {
                 <span className="text-base text-strimzPrimary font-[500] font-poppins">Electricity</span>
             </div>
 
-            <main className="w-full grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <main className="w-full grid grid-cols-2 md:grid-cols-4 gap-4">
                 {
                     electricProviders.map((item, i) => (
                         <Link key={i} className="bg-white border border-[#E5E7EB] shadow-[0px_1px_2px_0px_#00000014] p-[12px] rounded-[12px] flex flex-col gap-3" href={item.href}>
