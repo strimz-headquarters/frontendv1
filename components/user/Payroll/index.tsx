@@ -15,7 +15,7 @@ const UserPayrolls = () => {
     const router = useRouter()
     return (
         <section className="w-full flex flex-col">
-            <div className="w-full flex justify-between items-center">
+            <div className="w-full flex md:flex-row flex-col justify-between md:items-center">
                 <div className="w-full flex flex-col">
                     <h3 className="font-[600] font-sora text-lg">Payroll</h3>
                     <p className="text-[#58556A] capitalize text-xs font-[400] font-poppins">Automate token streaming instantly </p>

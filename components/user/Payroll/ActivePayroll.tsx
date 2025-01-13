@@ -90,12 +90,12 @@ const ActivePayroll = () => {
                 onOpenChange={setIsOpen}
                 className="w-full space-y-2 bg-[#F9FAFB] p-3 rounded-[16px] border border-[#E5E7EB]"
             >
-                <div className="flex items-start justify-between space-x-4 bg-white rounded-[8px] border border-[#E5E7EB] shadow-navbarShadow p-4">
+                <div className="flex items-start justify-between gap-3 bg-white rounded-[8px] border border-[#E5E7EB] shadow-navbarShadow p-4">
                     <div className="flex flex-col gap-1.5">
                         <h4 className="text-sm font-poppins font-[600] text-strimzPrimary">
                             Contract employees
                         </h4>
-                        <div className="flex items-center gap-3 text-xs font-poppins font-[400] text-[#8E8C9C]">
+                        <div className="flex flex-wrap items-center md:gap-3 gap-2 text-xs font-poppins font-[400] text-[#8E8C9C]">
                             <span className="flex items-center gap-0.5">
                                 <Image src={usdcIcon} alt='usdc' className='w-4 h-4 mt-0.5' width={68} height={69} quality={100} priority />
                                 12,000
