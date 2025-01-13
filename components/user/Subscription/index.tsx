@@ -4,6 +4,12 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
+import NetworkProviders from "./NetworkProviders"
+import { CiGlobe, CiMobile1 } from "react-icons/ci";
+import { IoCallOutline } from "react-icons/io5";
+import CableTv from "./CableTv";
+import Electricity from "./Electricity";
+
 
 const StrimzSubscriptions = () => {
     return (
@@ -22,20 +28,22 @@ const StrimzSubscriptions = () => {
                         <TabsTrigger className="px-3 py-2" value="CableTV">Cable TV</TabsTrigger>
                         <TabsTrigger className="px-3 py-2" value="Electricity">Electricity</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="all" className="mt-8 w-full">
-
+                    <TabsContent value="all" className="mt-8 w-full flex flex-col gap-8">
+                        <NetworkProviders icon={<CiMobile1 className="w-4 h-4" />} />
+                        <CableTv />
+                        <Electricity />
                     </TabsContent>
                     <TabsContent value="Airtime" className="mt-8 w-full">
-
+                        <NetworkProviders icon={<IoCallOutline className="w-4 h-4" />} />
                     </TabsContent>
                     <TabsContent value="Data" className="mt-8 w-full">
-
+                        <NetworkProviders icon={<CiGlobe className="w-4 h-4" />} />
                     </TabsContent>
                     <TabsContent value="CableTV" className="mt-8 w-full">
-
+                        <CableTv />
                     </TabsContent>
                     <TabsContent value="Electricity" className="mt-8 w-full">
-
+                        <Electricity />
                     </TabsContent>
                 </Tabs>
             </main>
