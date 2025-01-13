@@ -54,7 +54,6 @@ const UserPayrolls = () => {
                     <TabsContent value="pausedpayroll" className="mt-8 w-full">
                         <PausedPayroll />
                     </TabsContent>
-
                 </Tabs>
             </main>
         </section>

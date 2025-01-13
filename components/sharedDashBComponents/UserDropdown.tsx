@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import {
     LogOut,
-    Settings,
     User,
 } from "lucide-react"
 import {
@@ -16,6 +15,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { RxCaretDown } from 'react-icons/rx';
 import { PiUserCircleLight } from "react-icons/pi";
+import { IoIosHelpCircleOutline } from 'react-icons/io';
+import { MdOutlinePayment } from "react-icons/md";
 
 const UserDropdown: React.FC = () => {
 
@@ -38,21 +39,27 @@ const UserDropdown: React.FC = () => {
                     <DropdownMenuItem asChild>
                         <Link href="/user/profile">
                             <User />
-                            <span>Profile</span>
+                            <span>Profile Settings</span>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link href="/user/settings">
-                            <Settings />
-                            <span>Settings</span>
+                            <MdOutlinePayment />
+                            <span>Plans and billing</span>
+                        </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/user/settings">
+                            <IoIosHelpCircleOutline />
+                            <span>Help</span>
                         </Link>
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                    <button onClick={handleLogout} className='w-full'>
+                    <button onClick={handleLogout} className='w-full text-[#9B1C1C]'>
                         <LogOut />
-                        <span>Log out</span>
+                        <span>Sign out</span>
                     </button>
                 </DropdownMenuItem>
             </DropdownMenuContent>
