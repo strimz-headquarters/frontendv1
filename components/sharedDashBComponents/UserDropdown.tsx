@@ -17,11 +17,15 @@ import { RxCaretDown } from 'react-icons/rx';
 import { PiUserCircleLight } from "react-icons/pi";
 import { IoIosHelpCircleOutline } from 'react-icons/io';
 import { MdOutlinePayment } from "react-icons/md";
+import { useRouter } from 'next/navigation';
+
 
 const UserDropdown: React.FC = () => {
+    const router = useRouter()
 
     const handleLogout = () => {
         console.log('Logged out');
+        router.push("/login")
     };
 
     return (
@@ -37,13 +41,13 @@ const UserDropdown: React.FC = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
-                        <Link href="/user/profile">
+                        <Link href="/user/account">
                             <User />
                             <span>Profile Settings</span>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                        <Link href="/user/settings">
+                        <Link href="/user/account/plan">
                             <MdOutlinePayment />
                             <span>Plans and billing</span>
                         </Link>
