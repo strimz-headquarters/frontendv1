@@ -13,14 +13,22 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { defaultAxiosInstance } from "@/config/AxiosInstance";
+import Logo from "@/components/shared/Logo";
+import StrimzLogo from "@/public/logo/logo.png"
 
 const SignupForm = () => {
     return (
-        <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col items-center py-8 px-6">
-            <h4 className="font-[600] font-sora text-strimzPrimary text-center text-lg">Welcome to Strimz</h4>
+        <>
+            <header className="w-full fixed top-0 inset-x-0 md:hidden flex justify-center items-center pt-4">
+                <Logo href='/' classname='md:w-[114.28px] w-[101px]' image={StrimzLogo} />
+            </header>
 
-            <FormInputs />
-        </div>
+            <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col items-center py-8 px-6">
+                <h4 className="font-[600] font-sora text-strimzPrimary text-center text-lg">Welcome to Strimz</h4>
+
+                <FormInputs />
+            </div>
+        </>
     )
 }
 
@@ -80,8 +88,8 @@ const FormInputs = () => {
             }
 
         } catch (error: any) {
-            console.error("Failed to login:", error);
-            toast.error(error.message, {
+            console.error("Failed to login:", error.response.data);
+            toast.error(error.response.data.message, {
                 position: "top-right",
             })
         } finally {

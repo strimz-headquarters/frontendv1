@@ -24,9 +24,9 @@ const UserDropdown: React.FC = () => {
     const router = useRouter()
 
     const handleLogout = () => {
-        console.log('Logged out');
+        localStorage.removeItem("strimzUser");
         router.push("/login")
-    };
+    }
 
     return (
         <DropdownMenu>

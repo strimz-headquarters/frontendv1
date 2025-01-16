@@ -8,19 +8,28 @@ import * as Yup from "yup";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import GoogleIcon from "@/public/brands/Google.svg"
-import Image from "next/image";
+// import GoogleIcon from "@/public/brands/Google.svg"
+// import Image from "next/image";
 import { useRouter } from "next/navigation";
-
+import { defaultAxiosInstance } from "@/config/AxiosInstance";
+import { toast } from "sonner";
+import Logo from "@/components/shared/Logo";
+import StrimzLogo from "@/public/logo/logo.png"
 
 
 const LoginForm = () => {
     return (
-        <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col items-center py-8 px-6">
-            <h4 className="font-[600] font-sora text-strimzPrimary text-center text-lg">Login to Strimz</h4>
+        <>
+            <header className="w-full fixed top-0 inset-x-0 md:hidden flex justify-center items-center pt-4">
+                <Logo href='/' classname='md:w-[114.28px] w-[101px]' image={StrimzLogo} />
+            </header>
 
-            <FormInputs />
-        </div>
+            <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col items-center py-8 px-6">
+                <h4 className="font-[600] font-sora text-strimzPrimary text-center text-lg">Login to Strimz</h4>
+
+                <FormInputs />
+            </div>
+        </>
     )
 }
 
@@ -61,19 +70,28 @@ const FormInputs = () => {
         try {
             setIsSending(true);
 
-            console.log("Email:", values.email);
-            console.log("Password", values.password);
+            const data = JSON.stringify(values);
 
-            await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate delay
+            const response = await defaultAxiosInstance.post("auth/sign-in", data);
 
-            // Reset the form after successful submission
-            resetForm();
-            router.push("/user")
-            console.log("Login successful!");
-        } catch (error) {
-            console.error("Failed to login:", error);
+            if (response.data.success) {
+                resetForm();
+                toast.success(response.data.message, {
+                    position: "top-right",
+                });
+
+                localStorage.setItem("strimzUser", JSON.stringify(response.data.data));
+
+                router.push("/user");
+            }
+        } catch (error: any) {
+            console.error("Failed to login:", error.response.data);
+            toast.error(error.response.data.message, {
+                position: "top-right",
+            })
         } finally {
             setIsSending(false);
+            resetForm();
         }
     };
     return (
@@ -145,12 +163,12 @@ const FormInputs = () => {
                             }
                         </button>
                         {/* divide */}
-                        <div className="w-full h-[1px] bg-[#E5E7EB]" />
+                        {/* <div className="w-full h-[1px] bg-[#E5E7EB]" /> */}
                         {/* google auth */}
-                        <button type="button" className='w-full h-[40px] flex justify-center gap-1.5 items-center rounded-[8px] bg-[#F9FAFB] text-[#58556A] font-poppins font-[500] shadow-[0px_-2px_4px_0px_#00000014_inset] border border-[#E5E7EB] text-[12px]'>
+                        {/* <button type="button" className='w-full h-[40px] flex justify-center gap-1.5 items-center rounded-[8px] bg-[#F9FAFB] text-[#58556A] font-poppins font-[500] shadow-[0px_-2px_4px_0px_#00000014_inset] border border-[#E5E7EB] text-[12px]'>
                             <Image src={GoogleIcon} width={12} height={12} alt="Google Icon" className='w-[18px] h-[18px]' priority quality={100} />
                             <span>Continue with Google</span>
-                        </button>
+                        </button> */}
 
                         {/* end */}
                         <div className="w-full flex flex-col items-center gap-4 mt-8">
