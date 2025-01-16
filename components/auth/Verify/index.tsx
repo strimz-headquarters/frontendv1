@@ -12,6 +12,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import { RxCaretLeft } from "react-icons/rx";
 import { defaultAxiosInstance } from "@/config/AxiosInstance"
 import { toast } from "sonner"
+import { setUserWithExpiration } from "@/config/ManageData"
 
 const VerificationForm = () => {
     const router = useRouter()
@@ -66,7 +67,7 @@ const FormInputs = () => {
                     position: "top-right",
                 });
 
-                localStorage.setItem("strimzUser", JSON.stringify(response.data.data));
+                setUserWithExpiration(response.data.data, 24);
 
                 setValue("")
 

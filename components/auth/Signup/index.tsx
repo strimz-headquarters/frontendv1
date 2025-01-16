@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { defaultAxiosInstance } from "@/config/AxiosInstance";
 import Logo from "@/components/shared/Logo";
 import StrimzLogo from "@/public/logo/logo.png"
+import { setUserWithExpiration } from "@/config/ManageData";
 
 const SignupForm = () => {
     return (
@@ -82,7 +83,7 @@ const FormInputs = () => {
                     position: "top-right",
                 });
 
-                localStorage.setItem("strimzUser", JSON.stringify(response.data.data));
+                setUserWithExpiration(response.data.data, 24);
 
                 router.push("/verify-email");
             }
