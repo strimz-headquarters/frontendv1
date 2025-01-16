@@ -8,17 +8,28 @@ import * as Yup from "yup";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import GoogleIcon from "@/public/brands/Google.svg"
-import Image from "next/image";
+// import GoogleIcon from "@/public/brands/Google.svg"
+// import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { defaultAxiosInstance } from "@/config/AxiosInstance";
+import Logo from "@/components/shared/Logo";
+import StrimzLogo from "@/public/logo/logo.png"
+import { setUserWithExpiration } from "@/config/ManageData";
 
 const SignupForm = () => {
     return (
-        <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col items-center py-8 px-6">
-            <h4 className="font-[600] font-sora text-strimzPrimary text-center text-lg">Welcome to Strimz</h4>
+        <>
+            <header className="w-full fixed top-0 inset-x-0 md:hidden flex justify-center items-center pt-4">
+                <Logo href='/' classname='md:w-[114.28px] w-[101px]' image={StrimzLogo} />
+            </header>
 
-            <FormInputs />
-        </div>
+            <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col items-center py-8 px-6">
+                <h4 className="font-[600] font-sora text-strimzPrimary text-center text-lg">Welcome to Strimz</h4>
+
+                <FormInputs />
+            </div>
+        </>
     )
 }
 
@@ -26,6 +37,7 @@ export default SignupForm
 
 
 interface FormInputValues {
+    username: string;
     email: string;
     password: string;
 }
@@ -38,11 +50,13 @@ const FormInputs = () => {
 
     //initial form values
     const initialValues: FormInputValues = {
+        username: "",
         email: "",
         password: ""
     };
 
     const validationSchema = Yup.object({
+        username: Yup.string().required("Username is required"),
         email: Yup.string().email("Invalid Email Format").required("Email is required"),
         password: Yup.string()
             .required("Password is required")
@@ -59,17 +73,26 @@ const FormInputs = () => {
         try {
             setIsSending(true);
 
-            console.log("Email:", values.email);
-            console.log("Password", values.password);
+            const data = JSON.stringify(values);
 
-            await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate delay
+            const response = await defaultAxiosInstance.post("auth/sign-up", data);
 
-            // Reset the form after successful submission
-            resetForm();
-            router.push("/verify-email");
-            console.log("Login successful!");
-        } catch (error) {
-            console.error("Failed to login:", error);
+            if (response.data.success) {
+                resetForm();
+                toast.success(response.data.message, {
+                    position: "top-right",
+                });
+
+                setUserWithExpiration(response.data.data, 24);
+
+                router.push("/verify-email");
+            }
+
+        } catch (error: any) {
+            console.error("Failed to login:", error.response.data);
+            toast.error(error.response.data.message, {
+                position: "top-right",
+            })
         } finally {
             setIsSending(false);
         }
@@ -85,6 +108,14 @@ const FormInputs = () => {
                 const { dirty, isValid, errors } = formik;
                 return (
                     <Form className="w-full flex flex-col gap-3 mt-6">
+                        {/* username */}
+                        <div className='w-full flex flex-col'>
+                            <label htmlFor="username" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Username</label>
+                            <Field type="text" name="username" id="username" placeholder='Adams' className={`w-full rounded-[8px] border bg-[#F9FAFB] shadow-navbarShadow h-[44px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-4 outline-none transition duration-300 focus:border-strimzBrandAccent ${errors.username ? "border-red-500" : "border-[#E5E7EB]"}`} />
+                            {/* error */}
+                            <ErrorMessage name="username"
+                                component={({ children }: any) => <ErrorDisplay message={children} />} />
+                        </div>
                         {/* email */}
                         <div className='w-full flex flex-col'>
                             <label htmlFor="email" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Email</label>
@@ -140,12 +171,12 @@ const FormInputs = () => {
                             }
                         </button>
                         {/* divide */}
-                        <div className="w-full h-[1px] bg-[#E5E7EB]" />
+                        {/* <div className="w-full h-[1px] bg-[#E5E7EB]" /> */}
                         {/* google auth */}
-                        <button type="button" className='w-full h-[40px] flex justify-center gap-1.5 items-center rounded-[8px] bg-[#F9FAFB] text-[#58556A] font-poppins font-[500] shadow-[0px_-2px_4px_0px_#00000014_inset] border border-[#E5E7EB] text-[12px]'>
+                        {/* <button type="button" className='w-full h-[40px] flex justify-center gap-1.5 items-center rounded-[8px] bg-[#F9FAFB] text-[#58556A] font-poppins font-[500] shadow-[0px_-2px_4px_0px_#00000014_inset] border border-[#E5E7EB] text-[12px]'>
                             <Image src={GoogleIcon} width={12} height={12} alt="Google Icon" className='w-[18px] h-[18px]' priority quality={100} />
                             <span>Continue with Google</span>
-                        </button>
+                        </button> */}
 
                         {/* end */}
                         <div className="w-full flex flex-col items-center gap-4 mt-8">

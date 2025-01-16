@@ -2,7 +2,8 @@
 import Footer from "@/components/sharedDashBComponents/Footer";
 import Header from "@/components/sharedDashBComponents/Header";
 import SideBar from "@/components/sharedDashBComponents/SideBar";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 export default function UserLayout({
     children,
@@ -10,6 +11,32 @@ export default function UserLayout({
     children: React.ReactNode;
 }>) {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+
+    const router = useRouter();
+
+    const checkAuth = useCallback(async () => {
+        if (typeof window !== "undefined") {
+            const user = localStorage.getItem("strimzUser");
+            if (user) {
+                try {
+                    const parsedUser = JSON.parse(user);
+                    if (!parsedUser.verified) {
+                        router.push("/verify-email");
+                    }
+                    return;
+                } catch (error) {
+                    console.error("Failed to parse user data:", error);
+                    router.push("/login");
+                }
+            } else {
+                router.push("/login");
+            }
+        }
+    }, [router])
+
+    useEffect(() => {
+        checkAuth();
+    }, [checkAuth])
 
     return (
         <div className=" bg-[#F9FAFB] lg:p-1.5">
