@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//default
 export const defaultAxiosInstance = axios.create({
   baseURL: "https://strimz-backend.onrender.com/api/v1/",
   headers: {
@@ -17,7 +18,9 @@ const axiosInstanceWithToken = axios.create({
 
 axiosInstanceWithToken.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("authToken");
+    const data = localStorage.getItem("strimzUser");
+    const parsedData = JSON.parse(data || "{}");
+    const token = parsedData?.accessToken;
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
