@@ -82,14 +82,23 @@ const FormInputs = () => {
                 });
 
                 setUserWithExpiration(response.data.data, 24);
+                console.log("user: ", response.data.data);
 
                 router.push("/user");
             }
         } catch (error: any) {
             console.error("Failed to login:", error.response.data);
-            toast.error(error.response.data.message, {
-                position: "top-right",
-            })
+            if (error.response.data.message === "Email verification sent") {
+                router.push("/verify-email");
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                })
+            } else {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                })
+            }
+
         } finally {
             setIsSending(false);
             resetForm();

@@ -61,10 +61,10 @@ const VerificationForm = () => {
 
             <p className="text-[#58556A] font-[400] font-poppins text-[14px] leading-[24px]">
                 Didn&apos;t get an email?
-                <button type="button" onClick={handleResendOTP} className="underline ml-2 text-strimzBrandAccent font-[500]">
+                <button type="button" onClick={handleResendOTP} className={`${!isSending && "underline"} ml-2 text-strimzBrandAccent font-[500]`}>
                     {
                         isSending ?
-                            (<span className="flex items-center text-[#FFFFFF] gap-1">
+                            (<span className="flex items-center gap-1">
                                 <AiOutlineLoading3Quarters className="animate-spin" />
                                 Sending...
                             </span>)
