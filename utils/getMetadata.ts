@@ -19,7 +19,56 @@ export const getMetadata = ({
   const imageUrl = `${baseUrl}${imageRelativePath}`;
 
   return {
+    generator: "Strimz Team",
+    applicationName: "Strimz",
+    referrer: "origin-when-cross-origin",
+    keywords: [
+      "strimz",
+      "Strimz",
+      "Strimz.xyz",
+      "Token streaming",
+      "Token streaming app",
+      "Token streaming platform",
+      "Crypto payments",
+      "Automation",
+      "automated payroll",
+      "automated utility bills",
+      "automated subscriptions",
+      "utility bills",
+      "subscription",
+      "subscription automation",
+      "subscription payments",
+      "subscription management",
+      "subscription management platform",
+      "subscription management software",
+      "subscription management app",
+      "subscription management tools",
+    ],
+    authors: [
+      { name: "SignorDev", url: "https://twitter.com/onesignor" },
+      { name: "Zee", url: "https://twitter.com/gathoni_zarah" },
+      { name: "Zarah", url: "https://twitter.com/zarah_0x" },
+    ],
+    creator: "Strimz Team",
+    publisher: "Omemgboji Emmanuel",
     metadataBase: new URL(baseUrl),
+    manifest: `${baseUrl}/manifest.json`,
+    alternates: {
+      canonical: baseUrl,
+    },
+    robots: {
+      index: false,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: false,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
     title: {
       default: title,
       template: titleTemplate,
@@ -48,6 +97,7 @@ export const getMetadata = ({
         template: titleTemplate,
       },
       description: description,
+      creator: "@Strimz_HQ",
       images: [
         {
           url: imageUrl,
