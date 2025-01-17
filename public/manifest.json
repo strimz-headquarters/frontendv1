@@ -6,15 +6,15 @@
     "display": "standalone",
     "background_color": "#FFFFFF",
     "theme_color": "#2C2F5E",
-    "iconPath": "/StrimzIcon.png",
+    "iconPath": "/favicon-32x32.png",
     "icons": [
         {
-            "src": "/StrimzIcon.png",
+            "src": "/favicon-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/StrimzIcon.png",
+            "src": "/favicon-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
