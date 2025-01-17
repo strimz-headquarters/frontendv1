@@ -90,7 +90,7 @@ const FormInputs = () => {
             console.error("Failed to login:", error.response.data);
             if (error.response.data.message === "Email verification sent") {
                 router.push("/verify-email");
-                toast.error(error.response.data.message, {
+                toast.success(error.response.data.message, {
                     position: "top-right",
                 })
             } else {
