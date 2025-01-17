@@ -1,4 +1,5 @@
-import StrimzSubscriptions from "@/components/user/Subscription";
+import StrimzSubscriptions from "@/components/user/Subscriptions";
+
 
 export default function Subscriptions() {
     return (

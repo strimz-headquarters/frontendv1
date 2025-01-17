@@ -11,12 +11,12 @@ import CableTv from "./CableTv";
 import Electricity from "./Electricity";
 
 
-const StrimzSubscriptions = () => {
+const StrimzUtilityBills = () => {
     return (
         <section className="w-full flex flex-col">
             <div className="w-full flex flex-col">
-                <h3 className="font-[600] font-sora text-lg">Subscriptions</h3>
-                <p className="text-[#58556A] capitalize text-xs font-[400] font-poppins">Pay and automate your subscriptions</p>
+                <h3 className="font-[600] text-strimzPrimary font-sora text-lg">Utility Bills</h3>
+                <p className="text-[#58556A] capitalize text-xs font-[400] font-poppins">Seamlessly pay for your utilities</p>
             </div>
 
             <main className="w-full mt-4">
@@ -51,4 +51,4 @@ const StrimzSubscriptions = () => {
     )
 }
 
-export default StrimzSubscriptions
+export default StrimzUtilityBills

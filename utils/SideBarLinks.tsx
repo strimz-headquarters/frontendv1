@@ -1,6 +1,8 @@
 import { AiOutlineDollar } from "react-icons/ai";
 import { GoHome } from "react-icons/go";
 import { MdOutlineSubscriptions } from "react-icons/md";
+import { LiaMoneyBillSolid } from "react-icons/lia";
+
 
 type SideBarLinksTypes = {
     href: string;
@@ -20,8 +22,13 @@ export const SideBarLinks: SideBarLinksTypes[] = [
         icon: <AiOutlineDollar className="w-[20px] h-[20px]" />
     },
     {
-        href: "/user/subscription",
-        title: "Subscription",
+        href: "/user/utilitybills",
+        title: "Utility Bills",
+        icon: <LiaMoneyBillSolid className="w-[20px] h-[20px]" />
+    },
+    {
+        href: "/user/subscriptions",
+        title: "Subscriptions",
         icon: <MdOutlineSubscriptions className="w-[20px] h-[20px]" />
     }
 ]

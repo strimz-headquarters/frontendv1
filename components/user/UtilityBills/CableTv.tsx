@@ -1,4 +1,4 @@
-import { tvProviders } from "@/utils/SubscriptionData"
+import { tvProviders } from "@/utils/UtilityData"
 import Image from "next/image"
 import Link from "next/link"
 import { IoMdTv } from "react-icons/io"

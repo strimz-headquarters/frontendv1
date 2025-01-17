@@ -1,4 +1,4 @@
-import { networkProviders } from "@/utils/SubscriptionData"
+import { networkProviders } from "@/utils/UtilityData"
 import Image from "next/image"
 import Link from "next/link"
 

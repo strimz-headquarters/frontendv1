@@ -1,4 +1,4 @@
-import { electricProviders } from "@/utils/SubscriptionData"
+import { electricProviders } from "@/utils/UtilityData"
 import Image from "next/image"
 import Link from "next/link"
 import { IoBulbOutline } from "react-icons/io5"
