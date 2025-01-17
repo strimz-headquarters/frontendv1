@@ -16,18 +16,18 @@ Strimz is a decentralized platform that simplifies crypto payroll and subscripti
 
 ## 🚀 Tech Stack
 
-- **Frontend**: React, Tailwind CSS, TypeScript, StarknetJs, Starknet-React
+- **Frontend**: NextJs, Tailwind CSS, TypeScript, StarknetJs, Starknet-React
 - **Backend**: Node.js, MongoDB
-- **Blockchain**: Starknet
+- **Blockchain**: Starknet, Cairo
 - **Hosting**: Vercel
 
 ## 📸 Screenshots
 
 ### Landing Page
-![Landing Page](https://github.com/strimz-headquarters/frontendv1/blob/75610e8de7b1d10dc33c25b15afb9ea7bcb38e6d/public/thumbnail.png)
+![Landing Page](https://github.com/strimz-headquarters/frontendv1/blob/c2b69ed1f8ba4ea5cf049ef1bfc2e06d15776c11/public/screenshot.png)
 
 ### Payroll Dashboard
-![Payroll Dashboard](https://via.placeholder.com/800x400.png?text=Payroll+Dashboard)
+![Payroll Dashboard](https://github.com/strimz-headquarters/frontendv1/blob/c2b69ed1f8ba4ea5cf049ef1bfc2e06d15776c11/public/screenshot-dashboard.png)
 
 ## 💻 Local Development Setup
 
@@ -63,9 +63,6 @@ Follow these steps to run Strimz locally:
   npm run build
   ```
 
-## 📚 Documentation
-
-Explore our [documentation](https://docs.strimz.com) for a detailed guide on using Strimz and its SDK.
 
 ## 🤝 Contributing
 
@@ -81,7 +78,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## 💬 Contact
 
 - **Twitter**: [@Strimz_HQ](https://x.com/Strimz_HQ)
-- **Email**: support@strimz.com
 
 ---
 
