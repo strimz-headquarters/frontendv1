@@ -17,12 +17,34 @@ import { setUserWithExpiration } from "@/config/ManageData"
 const VerificationForm = () => {
     const router = useRouter()
     const [user, setUser] = useState<{ email?: string }>({});
+    const [isSending, setIsSending] = useState<boolean>(false)
 
     useEffect(() => {
         const data = window.localStorage.getItem("strimzUser");
         const parsedUser = data ? JSON.parse(data) : {};
         setUser(parsedUser);
     }, []);
+
+    const handleResendOTP = async () => {
+        setIsSending(true)
+        try {
+            const data = JSON.stringify({ email: user?.email });
+            const response = await defaultAxiosInstance.post("auth/send-verification", data);
+
+            if (response.data.success) {
+                toast.success(response.data.message, {
+                    position: "top-right",
+                });
+            }
+        } catch (error: any) {
+            console.error(error.response.data);
+            toast.error(error.response.data.message, {
+                position: "top-right",
+            })
+        } finally {
+            setIsSending(false)
+        }
+    }
 
     return (
         <div className="shadow-authCardShadow md:w-[380px] w-full rounded-[16px] bg-white border border-[#E5E7EB] flex flex-col gap-4 items-center py-8 px-6 relative">
@@ -39,7 +61,16 @@ const VerificationForm = () => {
 
             <p className="text-[#58556A] font-[400] font-poppins text-[14px] leading-[24px]">
                 Didn&apos;t get an email?
-                <button className="underline ml-2 text-strimzBrandAccent font-[500]">Resend code</button>
+                <button type="button" onClick={handleResendOTP} className="underline ml-2 text-strimzBrandAccent font-[500]">
+                    {
+                        isSending ?
+                            (<span className="flex items-center text-[#FFFFFF] gap-1">
+                                <AiOutlineLoading3Quarters className="animate-spin" />
+                                Sending...
+                            </span>)
+                            : (<span>Resend code</span>)
+                    }
+                </button>
             </p>
 
             {/* go back btn */}
