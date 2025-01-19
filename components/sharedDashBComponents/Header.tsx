@@ -2,6 +2,10 @@
 import Logo from "../shared/Logo";
 import StrimzLogo from "@/public/logo/logo.png"
 import UserDropdown from "./UserDropdown";
+import { useEffect, useMemo, useState } from "react";
+import { CiWallet } from "react-icons/ci";
+import { IoCopyOutline } from "react-icons/io5";
+import { toast } from "sonner";
 
 const Header = ({
     sidebarOpen,
@@ -10,6 +14,42 @@ const Header = ({
     sidebarOpen: boolean;
     setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+
+    const [user, setUser] = useState<{ username?: string, address?: string }>({});
+
+    useEffect(() => {
+        const data = window.localStorage.getItem("strimzUser");
+        const parsedUser = data ? JSON.parse(data) : {};
+        setUser(parsedUser);
+    }, []);
+
+    const shortenAddress = useMemo(() => {
+        return user?.address ? `${user?.address.slice(0, 8)}...${user?.address.slice(-6)}` : "";
+    }, [user?.address]);
+
+
+    // async function clipboard copy
+    const copyTextToClipboard = async (text: any) => {
+        if ('clipboard' in navigator) {
+            return await navigator.clipboard.writeText(text);
+        } else {
+            return document.execCommand('copy', true, text);
+        }
+    }
+
+    //handle copy to clipboard
+    const handleCopy = () => {
+        copyTextToClipboard(user?.address).then(() => {
+            toast.success("Wallet address copied to clipboard", {
+                position: "top-right",
+            })
+        }).catch((err) => {
+            console.log(err);
+            toast.error("Failed to copy wallet address", {
+                position: "top-right",
+            })
+        });
+    }
 
     return (
         <header className="sticky top-0 z-[99] flex w-full bg-white overflow-hidden border-b border-[#E5E7EB]">
@@ -57,8 +97,15 @@ const Header = ({
                 </div>
 
                 <div className="hidden sm:flex flex-col">
-                    <h4 className="text-strimzPrimary font-sora font-[500] md:text-lg text-base">Welcome Back</h4>
-                    <p className="text-xs capitalize text-[#58556A] font-poppins font-[400]">Streamline payments anytime ⚡</p>
+                    <h4 className="text-strimzPrimary capitalize font-sora font-[500] text-base">Welcome Back, {user?.username}</h4>
+                    <div className="flex gap-1 items-center">
+                        <CiWallet className="w-4 h-4" />
+                        <p className="text-sm capitalize text-[#58556A] font-poppins font-[400]">{shortenAddress}</p>
+                        <button type="button" onClick={handleCopy} className="text-[#58556A]">
+                            <IoCopyOutline className="w-4 h-4" />
+                        </button>
+                    </div>
+
                 </div>
 
                 <div className="flex items-center gap-3">

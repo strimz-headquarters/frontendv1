@@ -10,10 +10,31 @@ import { useRouter } from "next/navigation";
 import { FaCheck } from "react-icons/fa6";
 import Logo from "@/components/shared/Logo";
 import StrimzLogo from "@/public/logo/logo.png"
+import { useState, useCallback, useEffect } from "react";
+import axiosInstanceWithToken from "@/config/AxiosInstance";
 
 const Plans = () => {
+    const [strimzPlans, setStrimzPlans] = useState([])
+
+    const handlePlansFetch = useCallback(async () => {
+        try {
+            const response = await axiosInstanceWithToken.get("plan");
+            if (response.data.success) {
+                setStrimzPlans(response.data.data.rows.sort((a: any, b: any) => Number(a.limit) - Number(b.limit)));
+            }
+        } catch (error: any) {
+            console.error("Error fetching plans:", error);
+        }
+    }, [])
+
+    useEffect(() => {
+        handlePlansFetch()
+    }, [handlePlansFetch])
+
     const router = useRouter()
-    const handleClick = () => {
+    const handleClick = (id: string) => {
+        console.log(id);
+        localStorage.setItem("strimzPlan", id);
         router.push("/user")
     }
 
@@ -47,22 +68,22 @@ const Plans = () => {
                         <TabsContent className="w-full lg:mt-16 md:mt-10 mt-8" value="monthly">
                             <section className="w-full grid lg:grid-cols-4 md:grid-cols-2 lg:gap-8 md:gap-12 gap-8 lg:px-10 md:px-8 px-4">
                                 {
-                                    plans.map((plan) => (
+                                    strimzPlans.map((plan: any, index) => (
                                         <div
-                                            key={plan.name}
+                                            key={plan.planId}
                                             className="h-[420px] rounded-[16px] border border-[#E5E7EB] bg-[#F9FAFB] cursor-pointer transition-all duration-200 group hover:bg-strimzPrimary shadow-subCardShadow flex flex-col justify-between p-6"
                                         >
                                             <div className="w-full flex flex-col">
                                                 <span className="w-[40px] h-[40px] rounded-full flex justify-center items-center bg-white border-[0.5px] border-[#E5E7EB] shadow-verifyMShadow text-strimzPrimary">
                                                     {/* Replace with dynamic icon */}
-                                                    {plan.icon}
+                                                    {plans[index].icon}
                                                 </span>
                                                 <h4 className="font-poppins font-[500] text-base text-strimzPrimary my-2 transition-all duration-200 group-hover:text-[#F9FAFB]">
-                                                    {plan.name}
+                                                    {plan.plan}
                                                 </h4>
                                                 <div className="flex items-end gap-1">
                                                     <h2 className="font-[700] font-sora text-3xl text-strimzPrimary transition-all duration-200 group-hover:text-[#F9FAFB]">
-                                                        {plan.monthlyPrice === 0 ? "Free" : `$${plan.monthlyPrice}`}
+                                                        {plan.amount === 0 ? "Free" : `$${plan.amount}`}
                                                     </h2>
                                                     <span className="uppercase text-[#58556A] font-[400] font-poppins text-sm transition-all duration-200 group-hover:text-[#F9FAFB]">
                                                         / month
@@ -70,7 +91,7 @@ const Plans = () => {
                                                 </div>
                                                 {/* features */}
                                                 <ul className="w-full mt-6 list-none flex flex-col gap-3 transition-all duration-200 group-hover:text-[#F9FAFB] text-[#58556A]">
-                                                    {plan.features.map((feature, idx) => (
+                                                    {plans[index].features.map((feature, idx) => (
                                                         <li key={idx} className="w-full flex items-start gap-2 text-xs font-[400] font-poppins">
                                                             <FaCheck className="w-3 h-3 mt-[1.5px]" />
                                                             <span className="flex-1">{feature}</span>
@@ -80,7 +101,7 @@ const Plans = () => {
                                             </div>
                                             <button
                                                 type="button"
-                                                onClick={handleClick}
+                                                onClick={() => handleClick(plan.planId)}
                                                 className="w-full h-[40px] flex justify-center items-center bg-[#F3F4F6] border border-[#E5E7EB] shadow-[0px_-2px_4px_0px_#00000014_inset] rounded-[8px] text-sm font-[500] font-poppins text-strimzPrimary transition-all duration-200 group-hover:text-white group-hover:bg-strimzBrandAccent group-hover:shadow-joinWaitlistBtnShadow group-hover:border-none"
                                             >
                                                 {plan.name === "Basic" ? "Start for free" : "Choose plan"}
@@ -92,30 +113,30 @@ const Plans = () => {
                         <TabsContent className="w-full lg:mt-16 md:mt-10 mt-8" value="yearly">
                             <section className="w-full grid lg:grid-cols-4 md:grid-cols-2 lg:gap-8 md:gap-12 gap-8 lg:px-10 md:px-8 px-4">
                                 {
-                                    plans.map((plan) => (
+                                    strimzPlans.map((plan: any, index) => (
                                         <div
-                                            key={plan.name}
+                                            key={plan.planId}
                                             className="h-[420px] rounded-[16px] border border-[#E5E7EB] bg-[#F9FAFB] cursor-pointer transition-all duration-200 group hover:bg-strimzPrimary shadow-subCardShadow flex flex-col justify-between p-6"
                                         >
                                             <div className="w-full flex flex-col">
                                                 <span className="w-[40px] h-[40px] rounded-full flex justify-center items-center bg-white border-[0.5px] border-[#E5E7EB] shadow-verifyMShadow text-strimzPrimary">
                                                     {/* Replace with dynamic icon */}
-                                                    {plan.icon}
+                                                    {plans[index].icon}
                                                 </span>
                                                 <h4 className="font-poppins font-[500] text-base text-strimzPrimary my-2 transition-all duration-200 group-hover:text-[#F9FAFB]">
-                                                    {plan.name}
+                                                    {plan.plan}
                                                 </h4>
                                                 <div className="flex items-end gap-1">
                                                     <h2 className="font-[700] font-sora text-3xl text-strimzPrimary transition-all duration-200 group-hover:text-[#F9FAFB]">
-                                                        {plan.yearlyPrice === 0 ? "Free" : `$${plan.yearlyPrice}`}
+                                                        {plan.amount === 0 ? "Free" : `$${plan.amount * 12}`}
                                                     </h2>
                                                     <span className="uppercase text-[#58556A] font-[400] font-poppins text-sm transition-all duration-200 group-hover:text-[#F9FAFB]">
-                                                        / year
+                                                        / month
                                                     </span>
                                                 </div>
                                                 {/* features */}
                                                 <ul className="w-full mt-6 list-none flex flex-col gap-3 transition-all duration-200 group-hover:text-[#F9FAFB] text-[#58556A]">
-                                                    {plan.features.map((feature, idx) => (
+                                                    {plans[index].features.map((feature, idx) => (
                                                         <li key={idx} className="w-full flex items-start gap-2 text-xs font-[400] font-poppins">
                                                             <FaCheck className="w-3 h-3 mt-[1.5px]" />
                                                             <span className="flex-1">{feature}</span>
@@ -125,7 +146,7 @@ const Plans = () => {
                                             </div>
                                             <button
                                                 type="button"
-                                                onClick={handleClick}
+                                                onClick={() => handleClick(plan.planId)}
                                                 className="w-full h-[40px] flex justify-center items-center bg-[#F3F4F6] border border-[#E5E7EB] shadow-[0px_-2px_4px_0px_#00000014_inset] rounded-[8px] text-sm font-[500] font-poppins text-strimzPrimary transition-all duration-200 group-hover:text-white group-hover:bg-strimzBrandAccent group-hover:shadow-joinWaitlistBtnShadow group-hover:border-none"
                                             >
                                                 {plan.name === "Basic" ? "Start for free" : "Choose plan"}
