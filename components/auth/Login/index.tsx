@@ -81,8 +81,13 @@ const FormInputs = () => {
                     position: "top-right",
                 });
 
-                setUserWithExpiration(response.data.data, 24);
-                console.log("user: ", response.data.data);
+                const userPayload = {
+                    ...response.data.data,
+                    address: response.data.data.address.replace(/^0x/, "0x0")
+                };
+
+                setUserWithExpiration(userPayload, 24);
+                console.log("user: ", userPayload);
 
                 router.push("/user");
             }

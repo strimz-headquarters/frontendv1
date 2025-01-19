@@ -97,8 +97,11 @@ const FormInputs = () => {
                 toast.success(response.data.message, {
                     position: "top-right",
                 });
-
-                setUserWithExpiration(response.data.data, 24);
+                const userPayload = {
+                    ...response.data.data,
+                    address: response.data.data.address.replace(/^0x/, "0x0")
+                };
+                setUserWithExpiration(userPayload, 24);
 
                 setValue("")
 

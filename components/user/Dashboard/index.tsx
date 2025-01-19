@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Alert from './Alert'
 import Image from 'next/image'
 // import usdcIcon from "@/public/brands/USDC.svg"
@@ -8,8 +9,24 @@ import { AiOutlineDollarCircle } from 'react-icons/ai'
 import TransactionSummary from './TransactionSummary'
 import FundWallet from './FundWallet'
 import Withdraw from './Withdraw'
+import { useBalance } from "@starknet-react/core";
 
 const UserDashboardHome = () => {
+    const [user, setUser] = useState<{ address?: `0x${string}` }>({});
+
+    useEffect(() => {
+        const data = window.localStorage.getItem("strimzUser");
+        const parsedUser = data ? JSON.parse(data) : {};
+        setUser(parsedUser);
+    }, []);
+
+    const { data } = useBalance({
+        address: user?.address,
+        token: "0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d",
+        enabled: !!user?.address,
+        watch: true
+    });
+
     return (
         <section className="w-full flex flex-col gap-3">
             <Alert />
@@ -27,7 +44,7 @@ const UserDashboardHome = () => {
                                 </span>
                                 stark
                             </span>
-                            <h3 className="text-black font-[600] font-sora text-xl text-wrap">$ 0</h3>
+                            <h3 className="text-black font-[600] font-sora text-xl text-wrap">{data?.symbol} {data?.formatted}</h3>
                         </div>
 
                         {/* USDC */}
@@ -60,7 +77,7 @@ const UserDashboardHome = () => {
                                 </span>
                                 total payout
                             </span>
-                            <h3 className="text-black font-[600] font-sora text-xl text-wrap">$ 0</h3>
+                            <h3 className="text-black font-[600] font-sora text-xl text-wrap">{data?.symbol} 0</h3>
                         </div>
                     </div>
                     {/* fund & withdraw */}
