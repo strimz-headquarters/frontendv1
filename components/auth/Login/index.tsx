@@ -83,7 +83,7 @@ const FormInputs = () => {
 
                 const userPayload = {
                     ...response.data.data,
-                    address: response.data.data.address.replace(/x/, "x0")
+                    address: '0x0' + response.data.data.address.slice(2)
                 };
 
                 setUserWithExpiration(userPayload, 24);
