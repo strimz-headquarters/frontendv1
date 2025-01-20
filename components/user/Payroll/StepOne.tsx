@@ -1,3 +1,4 @@
+'use client'
 import {
     Select,
     SelectContent,
@@ -5,8 +6,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import usdcIcon from "@/public/brands/USDC.svg"
-import usdtIcon from "@/public/brands/USDT.svg"
+// import usdcIcon from "@/public/brands/USDC.svg"
+// import usdtIcon from "@/public/brands/USDT.svg"
+import starkToken from "@/public/brands/starknet.svg"
 import Image from "next/image";
 import {
     Popover,
@@ -17,6 +19,7 @@ import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
+import { useState } from "react";
 
 interface StepOneFormProps {
     data: {
@@ -24,7 +27,7 @@ interface StepOneFormProps {
         token: string;
         frequency: string;
         startDate: Date | null;
-        paymentTime: string;
+        // paymentTime: string;
     };
     setData: (newData: any) => void;
     handleClick: () => void;
@@ -42,22 +45,24 @@ const StepOneForm = ({ data, setData, handleClick }: StepOneFormProps) => {
 
             {/* inputs section */}
             <div className="w-full flex flex-col gap-4">
-                {/* payroll name */}
-                <div className="w-full flex flex-col">
-                    <label htmlFor="payrollName" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Payroll name <span className="text-rose-600 mt-2">*</span></label>
-                    <input
-                        type="text"
-                        name="payrollName"
-                        id="payrollName"
-                        placeholder='Contract employees'
-                        value={data.payrollName}
-                        onChange={(e) =>
-                            setData((prev: any) => ({ ...prev, payrollName: e.target.value }))
-                        }
-                        className={`w-full rounded-[8px] border bg-[#F9FAFB] shadow-navbarShadow h-[44px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-4 outline-none transition duration-300 focus:border-strimzBrandAccent border-[#E5E7EB]`} />
-                </div>
+
 
                 <div className="w-full grid md:grid-cols-2 md:gap-6 gap-4">
+                    {/* payroll name */}
+                    <div className="w-full flex flex-col">
+                        <label htmlFor="payrollName" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Payroll name <span className="text-rose-600 mt-2">*</span></label>
+                        <input
+                            type="text"
+                            name="payrollName"
+                            id="payrollName"
+                            placeholder='Contract employees'
+                            value={data.payrollName}
+                            onChange={(e) =>
+                                setData((prev: any) => ({ ...prev, payrollName: e.target.value }))
+                            }
+                            className={`w-full rounded-[8px] border bg-[#F9FAFB] shadow-navbarShadow h-[44px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-4 outline-none transition duration-300 focus:border-strimzBrandAccent border-[#E5E7EB]`} />
+                    </div>
+
                     {/* select token */}
                     <div className='w-full flex flex-col'>
                         <label htmlFor="token" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Token <span className="text-rose-600 mt-2">*</span></label>
@@ -70,7 +75,13 @@ const StepOneForm = ({ data, setData, handleClick }: StepOneFormProps) => {
                                 <SelectValue placeholder="Select token" />
                             </SelectTrigger>
                             <SelectContent className="focus:ring-0 focus:outline-none z-[99999]">
-                                <SelectItem value="usdc" >
+                                <SelectItem value="0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d" >
+                                    <span className="w-full uppercase flex flex-row items-center gap-1">
+                                        <Image src={starkToken} className="mt-1" alt="stark" width={22} height={22} />
+                                        STARK
+                                    </span>
+                                </SelectItem>
+                                {/* <SelectItem value="usdc" >
                                     <span className="w-full uppercase flex flex-row items-center gap-1">
                                         <Image src={usdcIcon} className="mt-1" alt="USDC" width={22} height={22} />
                                         USDC
@@ -81,11 +92,15 @@ const StepOneForm = ({ data, setData, handleClick }: StepOneFormProps) => {
                                         <Image src={usdtIcon} className="mt-1" alt="USDT" width={22} height={22} />
                                         USDT
                                     </span>
-                                </SelectItem>
+                                </SelectItem> */}
                             </SelectContent>
                         </Select>
                     </div>
 
+
+                </div>
+
+                <div className="w-full grid md:grid-cols-2 md:gap-6 gap-4">
                     {/* stream frequency */}
                     <div className='w-full flex flex-col'>
                         <label htmlFor="frequency" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Stream frequency <span className="text-rose-600 mt-2">*</span></label>
@@ -103,18 +118,13 @@ const StepOneForm = ({ data, setData, handleClick }: StepOneFormProps) => {
                                 <SelectItem value="weekly">
                                     Weekly(7 days)
                                 </SelectItem>
-                                <SelectItem value="bi-weekly">
-                                    Bi-Weekly(14 days)
-                                </SelectItem>
                                 <SelectItem value="monthly">
                                     Monthly(30 days)
                                 </SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
-                </div>
 
-                <div className="w-full grid md:grid-cols-2 md:gap-6 gap-4">
                     {/* stream start date */}
                     <div className='w-full flex flex-col'>
                         <label htmlFor="startDate" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Stream start date <span className="text-rose-600 mt-2">*</span></label>
@@ -135,13 +145,17 @@ const StepOneForm = ({ data, setData, handleClick }: StepOneFormProps) => {
                             <PopoverContent className="w-auto p-0">
                                 <Calendar
                                     mode="single"
-                                    selected={data.startDate || undefined}
-                                    onSelect={(selectedDate) =>
-                                        setData((prev: any) => ({
-                                            ...prev,
-                                            startDate: selectedDate,
-                                        }))
-                                    }
+                                    selected={data.startDate ? new Date(data.startDate) : undefined}
+                                    onSelect={(selectedDate) => {
+                                        if (selectedDate) {
+                                            const dateWithTime = new Date(selectedDate);
+                                            dateWithTime.setUTCHours(0, 0, 0, 0);
+                                            setData((prev: any) => ({
+                                                ...prev,
+                                                startDate: dateWithTime.toISOString(), // Convert to ISO format
+                                            }));
+                                        }
+                                    }}
                                     initialFocus
                                 />
                             </PopoverContent>
@@ -149,17 +163,17 @@ const StepOneForm = ({ data, setData, handleClick }: StepOneFormProps) => {
                     </div>
 
                     {/* payment time */}
-                    <div className="w-full flex flex-col">
-                        <label htmlFor="paymentTime" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Payment time <span className="text-rose-600 mt-2">*</span></label>
+                    {/* <div className="w-full flex flex-col">
+                        <label htmlFor="paymentTime" className="font-poppins text-[14px] text-[#58556A] leading-[24px]">Stream start time <span className="text-rose-600 mt-2">*</span></label>
                         <input
                             type="time"
-                            name="paymentTime"
-                            id="paymentTime"
+                            name="startTime"
+                            id="startTime"
                             placeholder='00:00AM'
                             value={data.paymentTime}
                             onChange={(e) => setData((prev: any) => ({ ...prev, paymentTime: e.target.value }))}
                             className={`w-full rounded-[8px] border bg-[#F9FAFB] shadow-navbarShadow h-[44px] font-poppins text-[14px] placeholder:text-[14px] placeholder:text-[#8E8C9C] text-[#8E8C9C] px-4 outline-none transition duration-300 focus:border-strimzBrandAccent border-[#E5E7EB]`} />
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* button */}

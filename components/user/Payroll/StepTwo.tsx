@@ -48,7 +48,7 @@ interface StepTwoFormProps {
         token: string;
         frequency: string;
         startDate: Date | null;
-        paymentTime: string;
+        // paymentTime: string;
     };
     handleClick: () => void;
 }
@@ -83,9 +83,18 @@ const StepTwoForm = ({ data: StepOneData, handleClick }: StepTwoFormProps) => {
             }
 
             // Optional: Add address validation if required
-            if (row.address && !row.address.startsWith("0x")) {
-                setError("Invalid data: 'address' must start with '0x'.");
-                return false;
+            // Check if address is valid
+            if (row.address) {
+                if (
+                    typeof row.address !== "string" || // Must be a string
+                    !row.address.startsWith("0x") ||  // Must start with '0x'
+                    row.address.length !== 66         // Must have 66 characters
+                ) {
+                    setError("Invalid data: 'address' must be a valid StarkNet wallet address (66 characters, starting with '0x').");
+                    return false;
+                }
+            } else {
+                setError("Invalid data: 'address' field is required.");
             }
         }
 
@@ -215,7 +224,7 @@ const StepTwoForm = ({ data: StepOneData, handleClick }: StepTwoFormProps) => {
     const handleSubmit = () => {
         console.log("Step One Data:", StepOneData);
         console.log("Table Data:", tableData);
-        router.push("/user/payroll");
+        // router.push("/user/payroll");
     }
 
     return (

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Alert from './Alert'
 import Image from 'next/image'
 // import usdcIcon from "@/public/brands/USDC.svg"
@@ -7,9 +7,12 @@ import Image from 'next/image'
 import starkToken from "@/public/brands/starknet.svg"
 import { AiOutlineDollarCircle } from 'react-icons/ai'
 import TransactionSummary from './TransactionSummary'
-import FundWallet from './FundWallet'
-import Withdraw from './Withdraw'
+// import FundWallet from './FundWallet'
+// import Withdraw from './Withdraw'
 import { useBalance } from "@starknet-react/core";
+import { CiWallet } from 'react-icons/ci'
+import { IoCopyOutline } from 'react-icons/io5'
+import { toast } from 'sonner'
 
 const UserDashboardHome = () => {
     const [user, setUser] = useState<{ address?: `0x${string}` }>({});
@@ -26,6 +29,34 @@ const UserDashboardHome = () => {
         enabled: !!user?.address,
         watch: true
     });
+
+    const shortenAddress = useMemo(() => {
+        return user?.address ? `${user?.address.slice(0, 8)}...${user?.address.slice(-6)}` : "";
+    }, [user?.address]);
+
+
+    // async function clipboard copy
+    const copyTextToClipboard = async (text: any) => {
+        if ('clipboard' in navigator) {
+            return await navigator.clipboard.writeText(text);
+        } else {
+            return document.execCommand('copy', true, text);
+        }
+    }
+
+    //handle copy to clipboard
+    const handleCopy = () => {
+        copyTextToClipboard(user?.address).then(() => {
+            toast.success("Wallet address copied to clipboard", {
+                position: "top-right",
+            })
+        }).catch((err) => {
+            console.log(err);
+            toast.error("Failed to copy wallet address", {
+                position: "top-right",
+            })
+        });
+    }
 
     return (
         <section className="w-full flex flex-col gap-3">
@@ -82,8 +113,15 @@ const UserDashboardHome = () => {
                     </div>
                     {/* fund & withdraw */}
                     <div className="flex gap-4 mt-4 lg:mt-0">
-                        <FundWallet />
-                        <Withdraw />
+                        <div className="flex gap-1.5 items-center">
+                            <CiWallet className="w-4 h-4" />
+                            <p className="text-base capitalize text-[#58556A] font-poppins font-[400]">{shortenAddress}</p>
+                            <button type="button" onClick={handleCopy} className="text-[#58556A]">
+                                <IoCopyOutline className="w-4 h-4" />
+                            </button>
+                        </div>
+                        {/* <FundWallet />
+                        <Withdraw /> */}
                     </div>
                 </div>
             </main>
