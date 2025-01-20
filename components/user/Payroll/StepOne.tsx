@@ -19,7 +19,7 @@ import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
-import { useState } from "react";
+
 
 interface StepOneFormProps {
     data: {
@@ -145,16 +145,12 @@ const StepOneForm = ({ data, setData, handleClick }: StepOneFormProps) => {
                             <PopoverContent className="w-auto p-0">
                                 <Calendar
                                     mode="single"
-                                    selected={data.startDate ? new Date(data.startDate) : undefined}
+                                    selected={data.startDate || undefined}
                                     onSelect={(selectedDate) => {
-                                        if (selectedDate) {
-                                            const dateWithTime = new Date(selectedDate);
-                                            dateWithTime.setUTCHours(0, 0, 0, 0);
-                                            setData((prev: any) => ({
-                                                ...prev,
-                                                startDate: dateWithTime.toISOString(), // Convert to ISO format
-                                            }));
-                                        }
+                                        setData((prev: any) => ({
+                                            ...prev,
+                                            startDate: selectedDate,
+                                        }))
                                     }}
                                     initialFocus
                                 />

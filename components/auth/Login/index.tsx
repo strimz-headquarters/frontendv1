@@ -89,7 +89,15 @@ const FormInputs = () => {
                 setUserWithExpiration(userPayload, 24);
                 console.log("user: ", userPayload);
 
-                router.push("/user");
+                const plan = localStorage.getItem("strimzPlan");
+
+                if (!plan) {
+                    router.push("/onboarding/plans");
+                } else {
+                    router.push("/user");
+                }
+
+
             }
         } catch (error: any) {
             console.error("Failed to login:", error.response.data);

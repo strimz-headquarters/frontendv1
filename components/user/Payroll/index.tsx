@@ -10,30 +10,51 @@ import {
 import ActivePayroll from "./ActivePayroll"
 import PausedPayroll from "./PausedPayroll"
 import axiosInstanceWithToken from "@/config/AxiosInstance"
-import { useCallback, useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query";
+
+
+const fetchPayrolls = async () => {
+    const response = await axiosInstanceWithToken.get("payroll");
+    if (response.data.success) {
+        return response.data.data; // Return the rows and count directly
+    } else {
+        throw new Error("Failed to fetch payrolls");
+    }
+};
 
 const UserPayrolls = () => {
-    const [strimzPayrolls, setStrimzPayrolls] = useState([])
-    const [numOfPayrolls, setNumOfPayrolls] = useState<number>(0)
-
-    const handlePayrollFetch = useCallback(async () => {
-        try {
-            const response = await axiosInstanceWithToken.get("payroll");
-            if (response.data.success) {
-                setStrimzPayrolls(response.data.data.rows);
-                setNumOfPayrolls(response.data.data.count);
-                console.log(strimzPayrolls);
-            }
-        } catch (error: any) {
-            console.error("Error fetching plans:", error);
-        }
-    }, [])
-
-    useEffect(() => {
-        handlePayrollFetch()
-    }, [handlePayrollFetch])
-
     const router = useRouter()
+
+    const {
+        data: payrollData, // Destructure payroll data
+        isLoading, // Loading state
+        isError, // Error state
+        error, // Error details
+    } = useQuery({
+        queryKey: ["strimzPayrolls"], // Unique query key
+        queryFn: fetchPayrolls,
+        refetchOnWindowFocus: true, // Automatically refetch on window focus
+        staleTime: 0,
+        retry: 3,
+    });
+
+    // Handle loading and error states
+    if (isLoading) {
+        return <div>Loading payrolls...</div>;
+    }
+
+    if (isError) {
+        return (
+            <div className="text-red-500">
+                Error: {error?.message || "An unexpected error occurred"}
+            </div>
+        );
+    }
+
+    const { rows: strimzPayrolls = {}, count: numOfPayrolls = 0 } = payrollData || {};
+
+    console.log("strimzPayrolls: ", strimzPayrolls);
+
     return (
         <section className="w-full flex flex-col">
             <div className="w-full flex md:flex-row flex-col justify-between md:items-center">
@@ -76,7 +97,7 @@ const UserPayrolls = () => {
 
                         </TabsList>
                         <TabsContent value="activepayroll" className="mt-8 w-full">
-                            <ActivePayroll />
+                            <ActivePayroll data={strimzPayrolls} />
                         </TabsContent>
                         <TabsContent value="pausedpayroll" className="mt-8 w-full">
                             <PausedPayroll />

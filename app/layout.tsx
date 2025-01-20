@@ -1,3 +1,4 @@
+import ReactQueryProvider from "@/lib/ReactQueryProvider";
 import "@/styles/globals.css";
 import { getMetadata } from "@/utils/getMetadata";
 import { Toaster } from 'sonner';
@@ -17,8 +18,10 @@ export default function RootLayout({
       <body
         className="w-full min-h-screen antialiased bg-[#FFFFFF]"
       >
-        {children}
-        <Toaster richColors position="top-right" />
+        <ReactQueryProvider>
+          {children}
+          <Toaster richColors position="top-right" />
+        </ReactQueryProvider>
       </body>
     </html>
   );

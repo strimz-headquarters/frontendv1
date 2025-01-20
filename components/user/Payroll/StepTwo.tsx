@@ -27,6 +27,10 @@ import Link from "next/link";
 import { VscEdit, VscSave, VscRemove } from 'react-icons/vsc';
 import { GoPlus } from "react-icons/go";
 import { useRouter } from "next/navigation";
+import axiosInstanceWithToken from "@/config/AxiosInstance";
+import { toast } from "sonner";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useQueryClient } from "@tanstack/react-query";
 
 type CVSDataType = {
     name: string;
@@ -221,11 +225,54 @@ const StepTwoForm = ({ data: StepOneData, handleClick }: StepTwoFormProps) => {
     };
 
     const router = useRouter();
-    const handleSubmit = () => {
-        console.log("Step One Data:", StepOneData);
-        console.log("Table Data:", tableData);
-        // router.push("/user/payroll");
-    }
+
+    const [isSending, setIsSending] = useState(false);
+
+    const queryClient = useQueryClient();
+
+    const handleSubmit = async () => {
+        const req = {
+            name: StepOneData.payrollName,
+            plan: localStorage.getItem("strimzPlan"),
+            frequency: StepOneData.frequency,
+            token: StepOneData.token,
+            start_date: (() => {
+                const date = StepOneData?.startDate ? new Date(StepOneData.startDate) : new Date();
+                date.setUTCHours(9, 0, 0, 0); // Set time to 9:00 UTC
+                return date.toISOString();
+            })(),
+            receipients: tableData,
+        };
+
+        const formattedReq = JSON.stringify(req);
+
+        try {
+            setIsSending(true);
+
+            const response = await axiosInstanceWithToken.post("payroll", formattedReq);
+
+            if (response.data.success) {
+                toast.success(response.data.message, {
+                    position: "top-right",
+                });
+                console.log("data: ", response.data.data);
+
+                // Invalidate the payroll query to trigger refetch
+                queryClient.invalidateQueries({ queryKey: ["strimzPayrolls"] });
+
+                router.push("/user/payroll");
+            }
+        } catch (error: any) {
+            console.error("Failed to create payroll:", error.response?.data);
+            toast.error(error.response?.data?.message || "An error occurred", {
+                position: "top-right",
+            });
+        } finally {
+            setIsSending(false);
+        }
+    };
+
+
 
     return (
         <main className="w-full flex flex-col gap-5">
@@ -396,7 +443,16 @@ const StepTwoForm = ({ data: StepOneData, handleClick }: StepTwoFormProps) => {
                     {/* button */}
                     <button onClick={handleClick} type="button" className="w-[97px] h-[40px] flex justify-center items-center bg-[#F9FAFB] rounded-[8px] border border-[#E5E7EB] shadow-[0px_-2px_4px_0px_#00000014_inset] cursor-pointer text-[14px] font-[500] font-poppins text-strimzPrimary">Back</button>
 
-                    <button onClick={handleSubmit} type="button" className="w-[97px] h-[40px] flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[500] shadow-joinWaitlistBtnShadow text-shadow text-[14px] capitalize">Submit</button>
+                    <button onClick={handleSubmit} type="button" className="px-4 h-[40px] flex justify-center items-center rounded-[8px] bg-strimzBrandAccent text-[#FFFFFF] font-poppins font-[500] shadow-joinWaitlistBtnShadow text-shadow text-[14px] capitalize">
+                        {
+                            isSending ?
+                                (<span className="flex items-center text-[#FFFFFF] gap-1">
+                                    <AiOutlineLoading3Quarters className="animate-spin text-[#FFFFFF]" />
+                                    Submitting...
+                                </span>)
+                                : (<span>Submit</span>)
+                        }
+                    </button>
                 </div>
             </div>
         </main>
